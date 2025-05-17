@@ -1,0 +1,82 @@
+{
+  "openapi": "3.0.0",
+  "components": {
+    "schemas": {
+      "Fusionado": {
+        "type": "object",
+        "properties": {
+          "planetName": {
+            "type": "string"
+          },
+          "climate": {
+            "type": "string"
+          },
+          "population": {
+            "type": "string"
+          },
+          "weather": {
+            "type": "object",
+            "properties": {
+              "temperatureC": {
+                "type": "number"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          "timestamp": {
+            "type": "integer"
+          }
+        }
+      },
+      "AlmacenarRequest": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único del item (obligatorio)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre del item (opcional)"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripción del item (opcional)"
+          }
+        }
+      },
+      "AlmacenarResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Item almacenado exitosamente"
+          },
+          "item": {
+            "$ref": "#/components/schemas/AlmacenarRequest"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Error en los datos enviados"
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "Star Wars Weather API - Reto Rimac",
+    "description": "API que fusiona datos de SWAPI con OpenWeather y permite almacenamiento personalizado. Desarollado por Gianpiero Benvenuto.",
+    "version": "1.0.0"
+  },
+  "paths": {}
+}
