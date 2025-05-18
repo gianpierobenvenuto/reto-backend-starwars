@@ -64,7 +64,7 @@ node generate-token.js
 - OpenAPI 3.0 (documentación técnica)
 - JWT para autenticación
 
-## Acceso a la API
+## Acceso a la API (Demo)
 
 No es necesario ejecutar ni instalar el proyecto localmente. Toda la API se encuentra desplegada y puede ser utilizada directamente a través del entorno público expuesto mediante Swagger UI.
 
