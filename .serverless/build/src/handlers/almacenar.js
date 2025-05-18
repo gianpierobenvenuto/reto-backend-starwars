@@ -19441,22 +19441,25 @@ function verifyToken(event) {
   if (!SECRET_KEY) {
     return {
       valid: false,
-      error: "Server misconfiguration: JWT_SECRET is undefined"
+      error: "Configuraci\xF3n incorrecta del servidor: JWT_SECRET no est\xE1 definido"
     };
   }
   const authHeader = event.headers?.Authorization || event.headers?.authorization;
   if (!authHeader) {
-    return { valid: false, error: "Authorization header missing" };
+    return { valid: false, error: "Encabezado Authorization ausente" };
   }
   const token = authHeader.split(" ")[1];
   if (!token) {
-    return { valid: false, error: "Token missing" };
+    return {
+      valid: false,
+      error: "Token ausente en el encabezado Authorization"
+    };
   }
   try {
     const payload = import_jsonwebtoken.default.verify(token, SECRET_KEY);
     return { valid: true, payload };
   } catch (err) {
-    return { valid: false, error: "Invalid token" };
+    return { valid: false, error: "Token inv\xE1lido" };
   }
 }
 
@@ -22776,6 +22779,7 @@ async function getCoordinates(placeName) {
   )}&format=json&limit=1`;
   const res = await axios_default.get(url2, {
     headers: { "User-Agent": "StarWarsApp/1.0" }
+    // requerido por Nominatim
   });
   if (res.data.length === 0) return null;
   return { lat: res.data[0].lat, lon: res.data[0].lon };
@@ -22798,9 +22802,13 @@ async function getWeatherByLatLon(lat, lon) {
 var TABLE_NAME = process.env.DYNAMO_TABLE;
 var client = new import_client_dynamodb.DynamoDBClient({});
 var bodySchema = z.object({
-  id: z.string().min(1, 'El campo "id" es obligatorio'),
-  planetName: z.string(),
-  climate: z.string(),
+  id: z.string({ required_error: 'El campo "id" es obligatorio' }).min(1, 'El campo "id" es obligatorio'),
+  planetName: z.string({
+    required_error: 'El campo "planetName" es obligatorio'
+  }),
+  climate: z.string({
+    required_error: 'El campo "climate" es obligatorio'
+  }),
   population: z.string().optional()
 });
 var handler = async (event) => {
@@ -22829,7 +22837,7 @@ var handler = async (event) => {
       weather,
       timestamp: Date.now(),
       source: "manual"
-      // ✅ Esto previene la expiración automática
+      // Indica que no expira como los datos de integración
     };
     const command = new import_client_dynamodb.PutItemCommand({
       TableName: TABLE_NAME,
@@ -22848,6 +22856,7 @@ var handler = async (event) => {
       return {
         statusCode: 400,
         body: JSON.stringify({
+          // Se concatenan todos los mensajes de error en español
           error: error.errors.map((e) => e.message).join(", ")
         })
       };

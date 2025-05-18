@@ -19,7 +19,7 @@ GET /fusionados: Consulta datos desde SWAPI y una API de clima, y los fusiona en
 
 POST /almacenar: Permite almacenar un planeta personalizado con datos ingresados manualmente, junto con el clima correspondiente obtenido por nombre. Requiere un cuerpo JSON con los campos `id` (string, requerido), `planetName` (string, requerido), `climate` (string, requerido), y `population` (string, opcional). Este endpoint también requiere token JWT válido.
 
-GET /historial: Retorna el historial de todas las respuestas generadas previamente por el endpoint `/fusionados`. Este endpoint también requiere autenticación con JWT. La respuesta está ordenada cronológicamente y admite paginación.
+GET /historial: Retorna el historial de todas las respuestas generadas previamente por el endpoint `/fusionados`. Este endpoint también requiere autenticación con JWT. La respuesta está ordenada en orden cronológico inverso (más recientes primero) y admite paginación.
 
 ## Autenticación
 

@@ -22744,7 +22744,9 @@ var BASE_URL = "https://swapi.py4e.com/api";
 async function getPlanet(name) {
   const response = await axios_default.get(`${BASE_URL}/planets/?search=${name}`);
   const planet = response.data.results[0];
-  if (!planet) throw new Error("Planeta no encontrado en SWAPI");
+  if (!planet) {
+    throw new Error("Planeta no encontrado en SWAPI");
+  }
   return {
     name: planet.name,
     climate: planet.climate,
@@ -22790,7 +22792,7 @@ async function cacheFusionado(planet, data) {
     id: planet,
     ...data,
     timestamp: Date.now()
-    // sobreescribe si ya venía
+    // tiempo actual de almacenamiento
   };
   const command = new import_client_dynamodb.PutItemCommand({
     TableName: TABLE_NAME,
@@ -22806,22 +22808,25 @@ function verifyToken(event) {
   if (!SECRET_KEY) {
     return {
       valid: false,
-      error: "Server misconfiguration: JWT_SECRET is undefined"
+      error: "Configuraci\xF3n incorrecta del servidor: JWT_SECRET no est\xE1 definido"
     };
   }
   const authHeader = event.headers?.Authorization || event.headers?.authorization;
   if (!authHeader) {
-    return { valid: false, error: "Authorization header missing" };
+    return { valid: false, error: "Encabezado Authorization ausente" };
   }
   const token = authHeader.split(" ")[1];
   if (!token) {
-    return { valid: false, error: "Token missing" };
+    return {
+      valid: false,
+      error: "Token ausente en el encabezado Authorization"
+    };
   }
   try {
     const payload = import_jsonwebtoken.default.verify(token, SECRET_KEY);
     return { valid: true, payload };
   } catch (err) {
-    return { valid: false, error: "Invalid token" };
+    return { valid: false, error: "Token inv\xE1lido" };
   }
 }
 
@@ -22836,6 +22841,7 @@ async function getCoordinates(placeName) {
     )}&format=json&limit=1`;
     const response = await axios_default.get(url2, {
       headers: { "User-Agent": "StarWarsApp/1.0" }
+      // Cumple con requisitos de Nominatim
     });
     if (response.data.length === 0) return null;
     return { lat: response.data[0].lat, lon: response.data[0].lon };

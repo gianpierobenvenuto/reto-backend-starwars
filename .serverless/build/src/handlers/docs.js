@@ -8723,7 +8723,7 @@ window.onload = function() {
   const rootRel = reqPath.replace(new RegExp(`^/${STAGE}/`), "");
   const rootFile = import_path.default.join(swaggerDistPath, rootRel);
   if (import_fs.default.existsSync(rootFile)) return serveFile(rootFile);
-  return { statusCode: 404, body: "Not Found" };
+  return { statusCode: 404, body: "No encontrado" };
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

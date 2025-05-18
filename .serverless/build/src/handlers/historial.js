@@ -7940,22 +7940,25 @@ function verifyToken(event) {
   if (!SECRET_KEY) {
     return {
       valid: false,
-      error: "Server misconfiguration: JWT_SECRET is undefined"
+      error: "Configuraci\xF3n incorrecta del servidor: JWT_SECRET no est\xE1 definido"
     };
   }
   const authHeader = event.headers?.Authorization || event.headers?.authorization;
   if (!authHeader) {
-    return { valid: false, error: "Authorization header missing" };
+    return { valid: false, error: "Encabezado Authorization ausente" };
   }
   const token = authHeader.split(" ")[1];
   if (!token) {
-    return { valid: false, error: "Token missing" };
+    return {
+      valid: false,
+      error: "Token ausente en el encabezado Authorization"
+    };
   }
   try {
     const payload = import_jsonwebtoken.default.verify(token, SECRET_KEY);
     return { valid: true, payload };
   } catch (err) {
-    return { valid: false, error: "Invalid token" };
+    return { valid: false, error: "Token inv\xE1lido" };
   }
 }
 
@@ -7998,6 +8001,7 @@ var handler = async (event) => {
       statusCode: 200,
       body: JSON.stringify({
         items,
+        // Enviar nueva lastKey para la siguiente página si existe
         lastKey: response.LastEvaluatedKey ? encodeURIComponent(JSON.stringify(response.LastEvaluatedKey)) : null
       })
     };

@@ -1,10 +1,24 @@
+/**
+ * @file planetService.ts
+ * @description Servicio para obtener información de un planeta, primero desde DynamoDB y luego desde SWAPI si no existe en base local.
+ *              Fusiona el acceso a datos propios y externos bajo una única interfaz de consulta.
+ *              Útil para verificar si el planeta ya fue almacenado manualmente antes de consultar APIs externas.
+ * @author Gianpiero Benvenuto
+ */
+
 import { getPlanet as getPlanetFromSWAPI } from "./swapiService";
 import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 
+// Nombre de la tabla DynamoDB
 const TABLE_NAME = process.env.DYNAMO_TABLE!;
 const client = new DynamoDBClient({});
 
+/**
+ * Busca un planeta almacenado localmente en DynamoDB.
+ * @param planet Nombre del planeta (case-insensitive)
+ * @returns Objeto del planeta si existe, o null si no está en base local
+ */
 async function getPlanetFromDB(planet: string) {
   const command = new GetItemCommand({
     TableName: TABLE_NAME,
@@ -15,8 +29,15 @@ async function getPlanetFromDB(planet: string) {
   return unmarshall(result.Item);
 }
 
+/**
+ * Obtiene la información de un planeta. Primero busca en DynamoDB;
+ * si no lo encuentra, lo busca en SWAPI.
+ *
+ * @param planet Nombre del planeta a buscar
+ * @returns Objeto con campos `name`, `climate` y `population`, o null si no se encuentra en ninguna fuente
+ */
 export async function getPlanet(planet: string) {
-  // Primero busca en DB local
+  // Primero busca en base de datos local (planetas almacenados manualmente)
   const planetDB = await getPlanetFromDB(planet);
   if (planetDB) return planetDB;
 
@@ -29,7 +50,7 @@ export async function getPlanet(planet: string) {
       population: planetSWAPI.population,
     };
   } catch {
-    // Si no lo encuentra en SWAPI tampoco
+    // Retorna null si tampoco se encuentra en SWAPI
     return null;
   }
 }

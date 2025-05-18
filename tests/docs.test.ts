@@ -1,50 +1,24 @@
-import { APIGatewayProxyHandler } from "aws-lambda";
-import * as fs from "fs";
-import * as path from "path";
-import * as mime from "mime-types";
+/**
+ * @file docs.test.ts
+ * @description Pruebas unitarias para el handler `docs`. Verifica que rutas desconocidas devuelvan 404 con mensaje en español.
+ * @author Gianpiero Benvenuto
+ */
 
-const swaggerDistPath = path.join(
-  __dirname,
-  "../../node_modules/swagger-ui-dist"
-);
-const openApiPath = path.join(__dirname, "../../openapi.json");
+import { handler } from "../src/handlers/docs";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
-export const handler: APIGatewayProxyHandler = async (event) => {
-  const reqPath = event.path || "";
+describe("handler de docs", () => {
+  it("debería devolver 404 para rutas desconocidas", async () => {
+    // Simular evento con ruta que no existe en /docs
+    const event = {
+      path: "/docs/unknown-file.js",
+    } as APIGatewayProxyEvent;
 
-  if (reqPath === "/docs" || reqPath === "/docs/") {
-    const indexPath = path.join(swaggerDistPath, "index.html");
-    let html = fs.readFileSync(indexPath, "utf8");
-    html = html.replace(/url: "https?:\/\/.*?"/, 'url: "./openapi.json"');
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": "text/html" },
-      body: html,
-    };
-  }
+    // Llamar al handler con el evento simulado
+    const result = (await handler(event)) as APIGatewayProxyResult;
 
-  if (reqPath.endsWith("openapi.json")) {
-    const openapiJson = fs.readFileSync(openApiPath, "utf8");
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: openapiJson,
-    };
-  }
-
-  const relativeAssetPath = reqPath.replace(/^\/docs\//, "");
-  const filePath = path.join(swaggerDistPath, relativeAssetPath);
-
-  if (fs.existsSync(filePath)) {
-    const fileBuffer = fs.readFileSync(filePath);
-    const contentType = mime.lookup(filePath) || "application/octet-stream";
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": contentType },
-      body: fileBuffer.toString("base64"),
-      isBase64Encoded: true,
-    };
-  }
-
-  return { statusCode: 404, body: "Not Found" };
-};
+    // Verificar código de estado y cuerpo
+    expect(result.statusCode).toBe(404);
+    expect(result.body).toBe("No encontrado");
+  });
+});

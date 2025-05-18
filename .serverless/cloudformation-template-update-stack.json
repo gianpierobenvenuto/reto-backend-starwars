@@ -118,7 +118,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-          "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
+          "S3Key": "serverless/reto-backend-starwars/dev/1747583197389-2025-05-18T15:46:37.389Z/reto-backend-starwars.zip"
         },
         "Handler": "src/handlers/docs.handler",
         "Runtime": "nodejs20.x",
@@ -149,7 +149,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-          "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
+          "S3Key": "serverless/reto-backend-starwars/dev/1747583197389-2025-05-18T15:46:37.389Z/reto-backend-starwars.zip"
         },
         "Handler": "src/handlers/fusionados.handler",
         "Runtime": "nodejs20.x",
@@ -180,7 +180,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-          "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
+          "S3Key": "serverless/reto-backend-starwars/dev/1747583197389-2025-05-18T15:46:37.389Z/reto-backend-starwars.zip"
         },
         "Handler": "src/handlers/almacenar.handler",
         "Runtime": "nodejs20.x",
@@ -211,7 +211,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-          "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
+          "S3Key": "serverless/reto-backend-starwars/dev/1747583197389-2025-05-18T15:46:37.389Z/reto-backend-starwars.zip"
         },
         "Handler": "src/handlers/historial.handler",
         "Runtime": "nodejs20.x",
@@ -237,44 +237,44 @@
         "HistorialLogGroup"
       ]
     },
-    "DocsLambdaVersionWntL9nYwASc9licge56TokZ6W3YYFvlPCpQXJnmeuWI": {
+    "DocsLambdaVersionx3WQihlzjh7afkQb5jcaMqIwintJ8KnNiU3zXJF4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "DocsLambdaFunction"
         },
-        "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
+        "CodeSha256": "UdPsdwX1XizEZQ9KfFpoDwLuBtKtKuiF3e2CKx3jY/I="
       }
     },
-    "FusionadosLambdaVersionSot1UUJ8ziKDyoYd021qJLu0qkPqGBftPUltVZR4pM": {
+    "FusionadosLambdaVersionkbreyVYkcJ9zhOOjr25aLtZz50gNUoxMpDXU0VEG8Y": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "FusionadosLambdaFunction"
         },
-        "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
+        "CodeSha256": "UdPsdwX1XizEZQ9KfFpoDwLuBtKtKuiF3e2CKx3jY/I="
       }
     },
-    "AlmacenarLambdaVersionHAzUqCF9wP0NI1X6XQTaY8VIFrEdOVR17X9eRJqGWw": {
+    "AlmacenarLambdaVersionZwAuHTMMIw8mA1Pta3aJXfa7EriDIj593qhCHlJZn4c": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AlmacenarLambdaFunction"
         },
-        "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
+        "CodeSha256": "UdPsdwX1XizEZQ9KfFpoDwLuBtKtKuiF3e2CKx3jY/I="
       }
     },
-    "HistorialLambdaVersion90LrPjBTA3vLfAmMvffuhYwEx1P0f0GH4YtoMf72k": {
+    "HistorialLambdaVersionfHj8rfx0UQZY91plMwDJzQ5JQ0QMq1KuXPNZpy6qCc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HistorialLambdaFunction"
         },
-        "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
+        "CodeSha256": "UdPsdwX1XizEZQ9KfFpoDwLuBtKtKuiF3e2CKx3jY/I="
       }
     },
     "ApiGatewayRestApi": {
@@ -713,7 +713,7 @@
         "HistorialLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1747578269226": {
+    "ApiGatewayDeployment1747583189133": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -909,7 +909,7 @@
     "DocsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DocsLambdaVersionWntL9nYwASc9licge56TokZ6W3YYFvlPCpQXJnmeuWI"
+        "Ref": "DocsLambdaVersionx3WQihlzjh7afkQb5jcaMqIwintJ8KnNiU3zXJF4"
       },
       "Export": {
         "Name": "sls-reto-backend-starwars-dev-DocsLambdaFunctionQualifiedArn"
@@ -918,7 +918,7 @@
     "FusionadosLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "FusionadosLambdaVersionSot1UUJ8ziKDyoYd021qJLu0qkPqGBftPUltVZR4pM"
+        "Ref": "FusionadosLambdaVersionkbreyVYkcJ9zhOOjr25aLtZz50gNUoxMpDXU0VEG8Y"
       },
       "Export": {
         "Name": "sls-reto-backend-starwars-dev-FusionadosLambdaFunctionQualifiedArn"
@@ -927,7 +927,7 @@
     "AlmacenarLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AlmacenarLambdaVersionHAzUqCF9wP0NI1X6XQTaY8VIFrEdOVR17X9eRJqGWw"
+        "Ref": "AlmacenarLambdaVersionZwAuHTMMIw8mA1Pta3aJXfa7EriDIj593qhCHlJZn4c"
       },
       "Export": {
         "Name": "sls-reto-backend-starwars-dev-AlmacenarLambdaFunctionQualifiedArn"
@@ -936,7 +936,7 @@
     "HistorialLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HistorialLambdaVersion90LrPjBTA3vLfAmMvffuhYwEx1P0f0GH4YtoMf72k"
+        "Ref": "HistorialLambdaVersionfHj8rfx0UQZY91plMwDJzQ5JQ0QMq1KuXPNZpy6qCc"
       },
       "Export": {
         "Name": "sls-reto-backend-starwars-dev-HistorialLambdaFunctionQualifiedArn"

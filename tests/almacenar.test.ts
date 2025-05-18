@@ -1,31 +1,53 @@
+/**
+ * @file almacenar.test.ts
+ * @description Pruebas unitarias para el handler `almacenar`.
+ *              Verifica los diferentes flujos: éxito al guardar, falta de body, y validación de campos requeridos.
+ * @author Gianpiero Benvenuto
+ */
+
 import { handler } from "../src/handlers/almacenar";
 import { APIGatewayProxyResult } from "aws-lambda";
 
-/* Mock verifyToken to always be valid */
+// Mock de verifyToken para simular siempre autenticación válida
 jest.mock("../src/utils/auth", () => ({
   verifyToken: () => ({ valid: true, payload: { userId: "test" } }),
 }));
 
-/* Mock DynamoDB */
+// Mock de DynamoDB: simulamos el cliente y el comando PutItem
 jest.mock("@aws-sdk/client-dynamodb", () => {
   return {
     DynamoDBClient: jest.fn().mockImplementation(() => ({
-      send: jest.fn().mockResolvedValue({}),
+      send: jest.fn().mockResolvedValue({}), // send siempre resuelve exitosamente
     })),
-    PutItemCommand: jest.fn(),
+    PutItemCommand: jest.fn(), // solo necesitamos el constructor
   };
 });
 
-describe("almacenar handler", () => {
-  it("should store item and return success", async () => {
+// Mock del servicio de geolocalización para devolver coordenadas fijas
+jest.mock("../src/services/geoService", () => ({
+  getCoordinates: jest.fn().mockResolvedValue({ lat: "0", lon: "0" }),
+}));
+
+// Mock del servicio de clima para devolver datos fijos
+jest.mock("../src/services/weatherService", () => ({
+  getWeatherByLatLon: jest.fn().mockResolvedValue({
+    temperatureC: 20,
+    description: "cielo despejado",
+  }),
+}));
+
+describe("handler de almacenar", () => {
+  it("debería guardar el ítem y devolver éxito", async () => {
+    // Evento simulado con body correcto
     const event = {
       body: JSON.stringify({
         id: "custom1",
-        name: "Test Item",
-        description: "This is a test item",
+        planetName: "Test Planet",
+        climate: "temperate",
       }),
     } as any;
 
+    // Ejecutamos el handler
     const result = (await handler(
       event,
       {} as any,
@@ -33,12 +55,14 @@ describe("almacenar handler", () => {
     )) as APIGatewayProxyResult;
     const body = JSON.parse(result.body);
 
+    // Verificamos el código HTTP y estructura de la respuesta
     expect(result.statusCode).toBe(201);
-    expect(body).toHaveProperty("message", "Item stored successfully");
+    expect(body).toHaveProperty("message", "Planeta almacenado correctamente");
     expect(body.item).toHaveProperty("id", "custom1");
   });
 
-  it("should return 400 if body is missing", async () => {
+  it("debería devolver 400 si falta el body", async () => {
+    // Evento con body nulo
     const event = { body: null } as any;
 
     const result = (await handler(
@@ -48,12 +72,19 @@ describe("almacenar handler", () => {
     )) as APIGatewayProxyResult;
     const body = JSON.parse(result.body);
 
+    // Esperamos un error de validación de presencia de body
     expect(result.statusCode).toBe(400);
-    expect(body).toHaveProperty("error", "No body provided");
+    expect(body).toHaveProperty(
+      "error",
+      "No se proporcionó cuerpo en la petición"
+    );
   });
 
-  it("should return 400 if id is missing", async () => {
-    const event = { body: JSON.stringify({ name: "No ID" }) } as any;
+  it("debería devolver 400 si falta el campo id", async () => {
+    // Evento con body sin la propiedad 'id'
+    const event = {
+      body: JSON.stringify({ planetName: "Tatooine", climate: "arid" }),
+    } as any;
 
     const result = (await handler(
       event,
@@ -62,7 +93,8 @@ describe("almacenar handler", () => {
     )) as APIGatewayProxyResult;
     const body = JSON.parse(result.body);
 
+    // El error debe contener el mensaje personalizado de Zod
     expect(result.statusCode).toBe(400);
-    expect(body).toHaveProperty("error", 'Field "id" is required');
+    expect(body.error).toContain('El campo "id" es obligatorio');
   });
 });

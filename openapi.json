@@ -1,36 +1,44 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Star Wars Weather API – Desarrollado por Gianpiero Benvenuto",
+    "title": "API de Clima y Planetas Star Wars",
     "version": "1.0.0",
-    "description": "API que combina datos de SWAPI y OpenWeather y permite almacenar planetas personalizados en DynamoDB."
+    "description": "API desarrollada por Gianpiero Benvenuto que combina datos de la Star Wars API (SWAPI) y OpenWeatherMap, con capacidad de almacenamiento y consulta de planetas personalizados en DynamoDB.",
+    "contact": {
+      "name": "Gianpiero Benvenuto",
+      "url": "https://github.com/gianpierobenvenuto"
+    }
   },
   "servers": [
-    { "url": "https://pi6undhnwe.execute-api.us-east-1.amazonaws.com/dev/" }
+    {
+      "url": "https://pi6undhnwe.execute-api.us-east-1.amazonaws.com/dev",
+      "description": "Entorno de desarrollo"
+    }
   ],
-
   "tags": [
     {
       "name": "Planetas",
-      "description": "Operaciones relacionadas con planetas, clima y almacenamiento."
+      "description": "Operaciones para consultar y almacenar información de planetas"
     },
     {
       "name": "Historial",
-      "description": "Consulta de registros almacenados por el endpoint /fusionados."
+      "description": "Consulta de registros históricos de planetas fusionados"
     }
   ],
-
-  "security": [{ "BearerAuth": [] }],
-
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
   "paths": {
     "/almacenar": {
       "post": {
         "tags": ["Planetas"],
         "security": [{ "BearerAuth": [] }],
-        "summary": "Almacena un planeta personalizado. El clima se calcula automáticamente.",
-        "description": "Guarda un planeta personalizado en DynamoDB y le añade automáticamente la información climática calculada a partir de sus coordenadas. Los planetas personalizados no tienen expiración de cache.",
+        "summary": "Almacenar planetas personalizados",
+        "description": "Guarda un planeta con datos manuales e incorpora información climática basada en su ubicación.",
         "requestBody": {
-          "description": "Envía los campos obligatorios \"id\", \"planetName\", \"climate\" y opcionalmente \"population\".",
+          "description": "Payload con los datos del planeta a almacenar",
           "required": true,
           "content": {
             "application/json": {
@@ -46,7 +54,7 @@
         },
         "responses": {
           "201": {
-            "description": "Planeta almacenado correctamente",
+            "description": "Planeta almacenado con éxito",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/AlmacenarResponse" }
@@ -54,7 +62,7 @@
             }
           },
           "400": {
-            "description": "Petición incorrecta",
+            "description": "Solicitud incorrecta (datos inválidos)",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/BadRequestError" }
@@ -62,7 +70,7 @@
             }
           },
           "401": {
-            "description": "No autorizado — header Authorization faltante o inválido",
+            "description": "No autorizado (token faltante o inválido)",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/UnauthorizedError" }
@@ -72,64 +80,32 @@
         }
       }
     },
-
     "/fusionados": {
       "get": {
         "tags": ["Planetas"],
         "security": [{ "BearerAuth": [] }],
-        "summary": "Obtiene datos fusionados de un planeta (SWAPI/cache + clima).",
-        "description": "Busca el planeta en cache o SWAPI y completa los datos con información climática basada en coordenadas.",
+        "summary": "Obtener datos fusionados de un planeta",
+        "description": "Devuelve información combinada de SWAPI (o caché) y datos meteorológicos para un planeta dado.",
         "parameters": [
           {
-            "in": "query",
             "name": "planeta",
+            "in": "query",
             "required": true,
             "schema": { "type": "string", "minLength": 1 },
-            "description": "Nombre del planeta a consultar (no sensible a mayúsculas)."
+            "description": "Nombre del planeta (no sensible a mayúsculas)"
           }
         ],
         "responses": {
           "200": {
-            "description": "Datos fusionados obtenidos correctamente",
+            "description": "Datos fusionados obtenidos satisfactoriamente",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": ["source", "data"],
-                  "properties": {
-                    "source": {
-                      "type": "string",
-                      "enum": ["cache", "live"],
-                      "description": "Origen de los datos"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "planetName",
-                        "climate",
-                        "population",
-                        "weather",
-                        "timestamp"
-                      ],
-                      "properties": {
-                        "planetName": { "type": "string" },
-                        "climate": { "type": "string" },
-                        "population": { "type": "string" },
-                        "weather": { "$ref": "#/components/schemas/Weather" },
-                        "timestamp": {
-                          "type": "integer",
-                          "format": "int64",
-                          "description": "Marca de tiempo UNIX"
-                        }
-                      }
-                    }
-                  }
-                }
+                "schema": { "$ref": "#/components/schemas/FusionadosResponse" }
               }
             }
           },
           "400": {
-            "description": "Parámetro inválido",
+            "description": "Parámetros de consulta inválidos",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/BadRequestError" }
@@ -137,7 +113,7 @@
             }
           },
           "401": {
-            "description": "No autorizado — header Authorization faltante o inválido",
+            "description": "No autorizado (token faltante o inválido)",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/UnauthorizedError" }
@@ -163,62 +139,32 @@
         }
       }
     },
-
     "/historial": {
       "get": {
         "tags": ["Historial"],
         "security": [{ "BearerAuth": [] }],
-        "summary": "Retorna el historial de respuestas del endpoint /fusionados.",
-        "description": "Devuelve los registros almacenados en DynamoDB ordenados de forma cronológica inversa. Incluye paginación mediante parámetros *limit* y *lastKey*.",
+        "summary": "Consultar historial de consultas fusionadas",
+        "description": "Obtiene registros históricos ordenados de manera inversa (más recientes primero), con soporte de paginación.",
         "parameters": [
           {
-            "in": "query",
             "name": "limit",
-            "schema": { "type": "integer", "minimum": 1 },
-            "description": "Número máximo de elementos por página (valor por defecto 10)."
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "default": 10 },
+            "description": "Cantidad máxima de registros a devolver"
           },
           {
-            "in": "query",
             "name": "lastKey",
+            "in": "query",
             "schema": { "type": "string" },
-            "description": "Cursor (clave codificada) para obtener la siguiente página."
+            "description": "Cursor para paginación (clave codificada)"
           }
         ],
         "responses": {
           "200": {
-            "description": "Historial obtenido correctamente",
+            "description": "Historial obtenido exitosamente",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": ["items", "lastKey"],
-                  "properties": {
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "planetName",
-                          "climate",
-                          "population",
-                          "weather",
-                          "timestamp"
-                        ],
-                        "properties": {
-                          "planetName": { "type": "string" },
-                          "climate": { "type": "string" },
-                          "population": { "type": "string" },
-                          "weather": { "$ref": "#/components/schemas/Weather" },
-                          "timestamp": { "type": "integer", "format": "int64" }
-                        }
-                      }
-                    },
-                    "lastKey": {
-                      "type": ["string", "null"],
-                      "description": "Cursor codificado para la siguiente página o null si no hay más datos."
-                    }
-                  }
-                }
+                "schema": { "$ref": "#/components/schemas/HistorialResponse" }
               }
             }
           },
@@ -231,7 +177,7 @@
             }
           },
           "401": {
-            "description": "No autorizado — header Authorization faltante o inválido",
+            "description": "No autorizado (token faltante o inválido)",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/UnauthorizedError" }
@@ -250,17 +196,15 @@
       }
     }
   },
-
   "components": {
     "securitySchemes": {
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT",
-        "description": "Token JWT en formato `Bearer {token}`"
+        "description": "Token JWT en formato 'Bearer {token}'"
       }
     },
-
     "schemas": {
       "Weather": {
         "type": "object",
@@ -272,11 +216,10 @@
           },
           "description": {
             "type": "string",
-            "description": "Descripción breve del clima"
+            "description": "Descripción del clima"
           }
         }
       },
-
       "AlmacenarRequest": {
         "type": "object",
         "required": ["id", "planetName", "climate"],
@@ -289,11 +232,10 @@
           "climate": { "type": "string", "description": "Clima del planeta" },
           "population": {
             "type": "string",
-            "description": "Población del planeta (opcional)"
+            "description": "Población (opcional)"
           }
         }
       },
-
       "AlmacenarResponse": {
         "type": "object",
         "properties": {
@@ -301,49 +243,70 @@
             "type": "string",
             "example": "Planeta almacenado correctamente"
           },
-          "item": {
-            "allOf": [
-              { "$ref": "#/components/schemas/AlmacenarRequest" },
-              {
-                "type": "object",
-                "properties": {
-                  "weather": { "$ref": "#/components/schemas/Weather" }
-                }
-              }
-            ],
-            "description": "Planeta almacenado (incluye weather generado)."
-          },
+          "item": { "$ref": "#/components/schemas/AlmacenarRequest" },
           "timestamp": {
             "type": "integer",
-            "description": "Marca de tiempo de almacenamiento"
+            "description": "Marca de tiempo en milisegundos"
           }
         }
       },
-
+      "FusionadosResponse": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "enum": ["cache", "live"],
+            "description": "Origen de los datos"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "planetName": { "type": "string" },
+              "climate": { "type": "string" },
+              "population": { "type": "string" },
+              "weather": { "$ref": "#/components/schemas/Weather" },
+              "timestamp": {
+                "type": "integer",
+                "description": "Marca de tiempo UNIX"
+              }
+            }
+          }
+        }
+      },
+      "HistorialResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FusionadosResponse" }
+          },
+          "lastKey": {
+            "type": ["string", "null"],
+            "description": "Cursor para la siguiente página"
+          }
+        }
+      },
       "BadRequestError": {
         "type": "object",
         "properties": {
           "error": { "type": "string", "example": "Parámetros inválidos" }
         }
       },
-
       "UnauthorizedError": {
         "type": "object",
         "properties": {
           "error": {
             "type": "string",
-            "example": "No autorizado — header Authorization faltante o inválido"
+            "example": "No autorizado (token faltante o inválido)"
           }
         }
       },
-
       "NotFoundError": {
         "type": "object",
         "properties": {
-          "error": { "type": "string", "example": "Planeta no encontrado" }
+          "error": { "type": "string", "example": "Recurso no encontrado" }
         }
       },
-
       "InternalServerError": {
         "type": "object",
         "properties": {
