@@ -1,5 +1,16 @@
-# Ignorar la carpeta node_modules
+# Ignore node_modules
 node_modules/
 
-# Ignorar el archivo .env
+# Ignore build artifacts
+build/
+
+# Ignore serverless deployment artifacts
+.serverless/
+
+# Ignore environment variables file
 .env
+
+# Ignore TypeScript and test build artifacts (optional, depending on your setup)
+*.log
+*.tmp
+coverage/
