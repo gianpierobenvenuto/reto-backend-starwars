@@ -40,7 +40,7 @@ JWT_SECRET=tu_secreto_jwt_aqui
 
 Este proyecto utiliza autenticación mediante JSON Web Tokens (JWT). Todos los endpoints protegidos requieren incluir el token en el encabezado Authorization. La lógica de validación del token se encuentra implementada en `utils/auth.ts`.
 
-Token de ejemplo para pruebas en Swagger UI:
+**Token de ejemplo para pruebas**: Para realizar pruebas en la API mediante Swagger UI, puedes utilizar el siguiente token JWT de ejemplo:
 
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0LXVzZXIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDc1MzM2Mjl9.998nuhaNHvaYuYWmAmxMCED3EkDRQGwOTl8MhW2BVWk
