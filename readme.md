@@ -55,7 +55,7 @@ No es necesario ejecutar ni instalar el proyecto localmente. Toda la API se encu
 
 Acceda a la documentación interactiva y pruebe todos los endpoints a través del siguiente enlace:
 
-[https://pi6undhnwe.execute-api.us-east-1.amazonaws.com/dev/docs/](https://pi6undhnwe.execute-api.us-east-1.amazonaws.com/dev/docs/){\:target="\_blank"}
+[https://pi6undhnwe.execute-api.us-east-1.amazonaws.com/dev/docs/](https://pi6undhnwe.execute-api.us-east-1.amazonaws.com/dev/docs/)
 
 Puede utilizar el token JWT de ejemplo proporcionado anteriormente para autenticar las solicitudes.
 
