@@ -21,6 +21,21 @@ POST /almacenar: Permite almacenar un planeta personalizado con datos ingresados
 
 GET /historial: Retorna el historial de todas las respuestas generadas previamente por el endpoint `/fusionados`. Este endpoint también requiere autenticación con JWT. La respuesta está ordenada en orden cronológico inverso (más recientes primero) y admite paginación.
 
+## Configuración del archivo `.env`
+
+Para que el proyecto funcione correctamente, es necesario crear un archivo `.env` en la raíz del proyecto. Este archivo debe contener las siguientes variables de entorno.
+
+### Pasos para crear el archivo `.env`:
+
+1. Crea un archivo llamado `.env` en la raíz del proyecto.
+2. Agrega las siguientes variables de entorno dentro de este archivo:
+
+```dotenv
+DYNAMO_TABLE=reto-backend-starwars-${opt:stage, 'dev'}-fusionadosTable
+WEATHER_API_KEY=tu_clave_api_aqui
+JWT_SECRET=tu_secreto_jwt_aqui
+```
+
 ## Autenticación
 
 Este proyecto utiliza autenticación mediante JSON Web Tokens (JWT). Todos los endpoints protegidos requieren incluir el token en el encabezado Authorization. La lógica de validación del token se encuentra implementada en `utils/auth.ts`.
@@ -35,21 +50,6 @@ También es posible generar un nuevo token JWT ejecutando el archivo `generate-t
 
 ```
 node generate-token.js
-```
-
-## Configuración del archivo `.env`
-
-Para que el proyecto funcione correctamente, es necesario crear un archivo `.env` en la raíz del proyecto. Este archivo debe contener las siguientes variables de entorno.
-
-### Pasos para crear el archivo `.env`:
-
-1. Crea un archivo llamado `.env` en la raíz del proyecto.
-2. Agrega las siguientes variables de entorno dentro de este archivo:
-
-```dotenv
-DYNAMO_TABLE=reto-backend-starwars-${opt:stage, 'dev'}-fusionadosTable
-WEATHER_API_KEY=tu_clave_api_aqui
-JWT_SECRET=tu_secreto_jwt_aqui
 ```
 
 ## Stack Tecnológico
