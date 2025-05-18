@@ -7,7 +7,7 @@ La API integra datos de la Star Wars API (SWAPI) y una API meteorológica para p
 ## Desarrollador
 
 Gianpiero Benvenuto
-[GitHub: gianpierobenvenuto](https://github.com/gianpierobenvenuto)
+<[GitHub](https://github.com/gianpierobenvenuto)>
 
 ## Descripción General
 
