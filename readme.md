@@ -25,6 +25,18 @@ GET /historial: Retorna el historial de todas las respuestas generadas previamen
 
 Este proyecto utiliza autenticación mediante JSON Web Tokens (JWT). Todos los endpoints protegidos requieren incluir el token en el encabezado Authorization. La lógica de validación del token se encuentra implementada en `utils/auth.ts`.
 
+Token de ejemplo para pruebas en Swagger UI:
+
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0LXVzZXIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDc1MzM2Mjl9.998nuhaNHvaYuYWmAmxMCED3EkDRQGwOTl8MhW2BVWk
+```
+
+También es posible generar un nuevo token JWT ejecutando el archivo `generate-token.js` ubicado en la raíz del proyecto:
+
+```
+node generate-token.js
+```
+
 ## Stack Tecnológico
 
 Node.js v20
@@ -37,48 +49,15 @@ Jest (pruebas unitarias e integración)
 OpenAPI 3.0 (documentación técnica)
 JWT para autenticación
 
-## Instalación Local
+## Acceso a la API
 
-Clonar el repositorio:
+No es necesario ejecutar ni instalar el proyecto localmente. Toda la API se encuentra desplegada y puede ser utilizada directamente a través del entorno público expuesto mediante Swagger UI.
 
-```
-git clone https://github.com/gianpierobenvenuto/reto-backend-starwars.git
-cd reto-backend-starwars
-```
+Acceda a la documentación interactiva y pruebe todos los endpoints a través del siguiente enlace:
 
-Instalar las dependencias:
+[https://pi6undhnwe.execute-api.us-east-1.amazonaws.com/dev/docs/](https://pi6undhnwe.execute-api.us-east-1.amazonaws.com/dev/docs/)
 
-```
-npm install
-```
-
-Ejecutar localmente utilizando serverless-offline:
-
-```
-npm run dev
-```
-
-## Pruebas
-
-Para ejecutar las pruebas:
-
-```
-npm run test
-```
-
-## Despliegue
-
-Este proyecto se despliega en AWS utilizando Serverless Framework. Es necesario contar con el AWS CLI configurado y credenciales válidas.
-
-Para desplegar:
-
-```
-npm run deploy
-```
-
-## Documentación
-
-La documentación técnica de la API se encuentra disponible en el archivo `openapi.json`, siguiendo el estándar OpenAPI 3.0. Puede visualizarse mediante Swagger UI, Postman, o cualquier herramienta compatible con este formato.
+Puede utilizar el token JWT de ejemplo proporcionado anteriormente para autenticar las solicitudes.
 
 ## Licencia
 
