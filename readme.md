@@ -37,17 +37,32 @@ También es posible generar un nuevo token JWT ejecutando el archivo `generate-t
 node generate-token.js
 ```
 
+## Configuración del archivo `.env`
+
+Para que el proyecto funcione correctamente, es necesario crear un archivo `.env` en la raíz del proyecto. Este archivo debe contener las siguientes variables de entorno.
+
+### Pasos para crear el archivo `.env`:
+
+1. Crea un archivo llamado `.env` en la raíz del proyecto.
+2. Agrega las siguientes variables de entorno dentro de este archivo:
+
+```dotenv
+DYNAMO_TABLE=reto-backend-starwars-${opt:stage, 'dev'}-fusionadosTable
+WEATHER_API_KEY=tu_clave_api_aqui
+JWT_SECRET=tu_secreto_jwt_aqui
+```
+
 ## Stack Tecnológico
 
-Node.js v20
-TypeScript
-AWS Lambda
-AWS API Gateway
-AWS DynamoDB
-Serverless Framework
-Jest (pruebas unitarias e integración)
-OpenAPI 3.0 (documentación técnica)
-JWT para autenticación
+- Node.js v20
+- TypeScript
+- AWS Lambda
+- AWS API Gateway
+- AWS DynamoDB
+- Serverless Framework
+- Jest (pruebas unitarias e integración)
+- OpenAPI 3.0 (documentación técnica)
+- JWT para autenticación
 
 ## Acceso a la API
 
