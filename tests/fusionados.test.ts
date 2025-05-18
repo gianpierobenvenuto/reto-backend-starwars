@@ -19,6 +19,11 @@ import * as swapiService from "../src/services/swapiService";
 import * as weatherService from "../src/services/weatherService";
 import * as cacheService from "../src/services/cacheService";
 
+// tests/fusionados.test.ts
+jest.mock("../src/utils/cloudwatchLogger", () => ({
+  logToCloudWatch: jest.fn(),
+}));
+
 // Mock de verifyToken para simular siempre autenticación válida
 jest.mock("../src/utils/auth", () => ({
   verifyToken: () => ({ valid: true, payload: { userId: "test" } }),

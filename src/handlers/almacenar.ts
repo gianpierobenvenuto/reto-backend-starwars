@@ -12,6 +12,7 @@ import { marshall } from "@aws-sdk/util-dynamodb";
 import { verifyToken } from "../utils/auth";
 import { getCoordinates } from "../services/geoService";
 import { getWeatherByLatLon } from "../services/weatherService";
+import { logToCloudWatch } from "../utils/cloudwatchLogger"; // Importa el logger
 
 // Nombre de la tabla DynamoDB tomada de las variables de entorno
 const TABLE_NAME = process.env.DYNAMO_TABLE!;
@@ -39,9 +40,13 @@ const bodySchema = z.object({
  * Verifica el token JWT, valida el payload, obtiene clima por coordenadas, y almacena el resultado en DynamoDB.
  */
 export const handler: APIGatewayProxyHandler = async (event) => {
+  // Log de inicio de la ejecución del handler
+  await logToCloudWatch("Inicio de la ejecución del handler /almacenar");
+
   // Verificar autenticación JWT
-  const auth = verifyToken(event);
+  const auth = await verifyToken(event);
   if (!auth.valid) {
+    await logToCloudWatch(`Autenticación fallida: ${auth.error}`, "ERROR");
     return {
       statusCode: 401,
       body: JSON.stringify({ error: auth.error }),
@@ -51,6 +56,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   try {
     // Validar existencia del cuerpo
     if (!event.body) {
+      await logToCloudWatch("No se proporcionó cuerpo en la petición", "ERROR");
       return {
         statusCode: 400,
         body: JSON.stringify({
@@ -63,23 +69,29 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     const data = JSON.parse(event.body);
     const parsed = bodySchema.parse(data);
 
+    // Log de datos validados
+    await logToCloudWatch(`Datos validados: ${JSON.stringify(parsed)}`);
+
     // Obtener coordenadas del planeta para luego consultar clima
     const coords = await getCoordinates(parsed.planetName);
+    if (!coords) {
+      await logToCloudWatch(
+        `No se encontraron coordenadas para el planeta: ${parsed.planetName}`,
+        "WARNING"
+      );
+    }
 
-    // Si no se encuentran coordenadas, usar ubicación genérica (0,0)
     const weather = coords
       ? await getWeatherByLatLon(coords.lat, coords.lon)
       : await getWeatherByLatLon("0", "0");
 
-    // Crear objeto a almacenar en DynamoDB
     const itemToStore = {
       ...parsed,
       weather,
       timestamp: Date.now(),
-      source: "manual", // Indica que no expira como los datos de integración
+      source: "manual",
     };
 
-    // Crear comando de inserción y enviarlo a DynamoDB
     const command = new PutItemCommand({
       TableName: TABLE_NAME,
       Item: marshall(itemToStore),
@@ -87,7 +99,9 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 
     await client.send(command);
 
-    // Respuesta exitosa
+    // Log de éxito
+    await logToCloudWatch(`Planeta almacenado: ${JSON.stringify(itemToStore)}`);
+
     return {
       statusCode: 201,
       body: JSON.stringify({
@@ -95,22 +109,42 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         item: itemToStore,
       }),
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Manejo de errores de validación
     if (error instanceof ZodError) {
+      await logToCloudWatch(
+        `Errores de validación: ${error.errors
+          .map((e) => e.message)
+          .join(", ")}`,
+        "ERROR"
+      );
       return {
         statusCode: 400,
         body: JSON.stringify({
-          // Se concatenan todos los mensajes de error en español
           error: error.errors.map((e) => e.message).join(", "),
         }),
       };
     }
-    // Manejo de errores generales
+
+    // Verificación del tipo de error
+    if (error instanceof Error) {
+      // Log de error general
+      await logToCloudWatch(
+        `Error en el procesamiento: ${error.message}`,
+        "ERROR"
+      );
+    } else {
+      // En caso de que el error no sea una instancia de Error, loguear el error desconocido
+      await logToCloudWatch(
+        `Error desconocido en el procesamiento: ${String(error)}`,
+        "ERROR"
+      );
+    }
+
     return {
       statusCode: 400,
       body: JSON.stringify({
-        error: error.message || "Error en los datos enviados",
+        error: error instanceof Error ? error.message : "Error desconocido",
       }),
     };
   }

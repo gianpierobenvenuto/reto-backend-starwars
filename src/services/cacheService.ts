@@ -11,6 +11,7 @@ import {
   PutItemCommand,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { logToCloudWatch } from "../utils/cloudwatchLogger"; // Importa el logger
 
 // Nombre de la tabla DynamoDB donde se almacena la caché
 const TABLE_NAME = process.env.DYNAMO_TABLE!;
@@ -24,13 +25,18 @@ const client = new DynamoDBClient({});
  * @returns Objeto almacenado o null si no existe o expiró
  */
 export async function getCachedFusionado(planet: string) {
+  await logToCloudWatch(`Recuperando desde caché: ${planet}`, "INFO");
+
   const command = new GetItemCommand({
     TableName: TABLE_NAME,
     Key: marshall({ id: planet }),
   });
 
   const result = await client.send(command);
-  if (!result.Item) return null;
+  if (!result.Item) {
+    await logToCloudWatch(`No se encontró en caché: ${planet}`, "INFO");
+    return null;
+  }
 
   const item = unmarshall(result.Item);
   const now = Date.now();
@@ -38,9 +44,14 @@ export async function getCachedFusionado(planet: string) {
 
   // Solo expira si fue generado automáticamente (de fuente externa SWAPI)
   if (item.source !== "manual" && cacheAge > 30 * 60 * 1000) {
+    await logToCloudWatch(`Cache expirado para el planeta: ${planet}`, "INFO");
     return null;
   }
 
+  await logToCloudWatch(
+    `Cache válido encontrado para el planeta: ${planet}`,
+    "INFO"
+  );
   return item;
 }
 
@@ -63,4 +74,8 @@ export async function cacheFusionado(planet: string, data: any) {
   });
 
   await client.send(command);
+  await logToCloudWatch(
+    `Fusionado almacenado en caché para el planeta: ${planet}`,
+    "INFO"
+  );
 }

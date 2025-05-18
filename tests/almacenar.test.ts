@@ -8,6 +8,11 @@
 import { handler } from "../src/handlers/almacenar";
 import { APIGatewayProxyResult } from "aws-lambda";
 
+// tests/almacenar.test.ts
+jest.mock("../src/utils/cloudwatchLogger", () => ({
+  logToCloudWatch: jest.fn(),
+}));
+
 // Mock de verifyToken para simular siempre autenticación válida
 jest.mock("../src/utils/auth", () => ({
   verifyToken: () => ({ valid: true, payload: { userId: "test" } }),

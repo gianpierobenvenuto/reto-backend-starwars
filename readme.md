@@ -31,6 +31,8 @@ Para que el proyecto funcione correctamente, es necesario crear un archivo `.env
 2. Agrega las siguientes variables de entorno dentro de este archivo:
 
 ```dotenv
+CLOUDWATCH_LOG_GROUP=tu_log_group_aqui
+CLOUDWATCH_LOG_STREAM=tu_log_stream_aqui
 DYNAMO_TABLE=reto-backend-starwars-${opt:stage, 'dev'}-fusionadosTable
 WEATHER_API_KEY=tu_clave_api_aqui
 JWT_SECRET=tu_secreto_jwt_aqui
@@ -40,7 +42,7 @@ JWT_SECRET=tu_secreto_jwt_aqui
 
 Este proyecto utiliza autenticación mediante JSON Web Tokens (JWT). Todos los endpoints protegidos requieren incluir el token en el encabezado de autorización. La lógica de validación del token se encuentra implementada en `utils/auth.ts`.
 
-**[Token de ejemplo para pruebas](#demo-token)**: Para realizar pruebas en la API mediante Swagger UI, puedes utilizar el siguiente token JWT de ejemplo:
+**Token de ejemplo para pruebas**: Para realizar pruebas en la API mediante Swagger UI, puedes utilizar el siguiente token JWT de ejemplo:
 
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0LXVzZXIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDc1MzM2Mjl9.998nuhaNHvaYuYWmAmxMCED3EkDRQGwOTl8MhW2BVWk
@@ -54,15 +56,18 @@ node generate-token.js
 
 ## Stack Tecnológico
 
-- Node.js v20
-- TypeScript
-- AWS Lambda
-- AWS API Gateway
-- AWS DynamoDB
-- Serverless Framework
-- Jest (pruebas unitarias e integración)
-- OpenAPI 3.0 (documentación técnica)
-- JWT para autenticación
+- Node.js v20: Entorno de ejecución de JavaScript.
+- TypeScript: Superset de JavaScript que agrega tipado estático.
+- AWS Lambda: Funciones serverless para ejecutar el backend.
+- AWS API Gateway: Exposición de endpoints HTTP para interacción con la API.
+- AWS DynamoDB: Base de datos NoSQL para persistencia de datos.
+- Serverless Framework: Herramienta para gestionar funciones serverless y recursos en AWS.
+- Jest: Framework de pruebas unitarias e integración.
+- OpenAPI 3.0: Documentación técnica de la API.
+- JWT: Autenticación mediante JSON Web Tokens.
+- AWS SDK v3: Cliente de AWS optimizado y modularizado.
+- Zod: Biblioteca para validación de esquemas y parámetros.
+- Axios: Cliente HTTP para hacer peticiones a servicios externos.
 
 ## Acceso a la API (Demo)
 

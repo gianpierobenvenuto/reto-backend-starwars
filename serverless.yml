@@ -6,12 +6,24 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
+  stage: ${opt:stage, 'dev'}
   memorySize: 128
   timeout: 10
+
+  # Límite global para toda la API (todos los endpoints)
+  apiGateway:
+    usagePlan:
+      throttle:
+        rateLimit: 50
+        burstLimit: 100
+
   environment:
     DYNAMO_TABLE: ${env:DYNAMO_TABLE}
     WEATHER_API_KEY: ${env:WEATHER_API_KEY}
     JWT_SECRET: ${env:JWT_SECRET}
+    CLOUDWATCH_LOG_GROUP: ${env:CLOUDWATCH_LOG_GROUP}
+    CLOUDWATCH_LOG_STREAM: ${env:CLOUDWATCH_LOG_STREAM}
+
   iam:
     role:
       statements:
@@ -22,6 +34,13 @@ provider:
             - dynamodb:Scan
           Resource:
             - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMO_TABLE}
+        - Effect: Allow
+          Action:
+            - logs:PutLogEvents
+            - logs:CreateLogStream
+          Resource:
+            - arn:aws:logs:${self:provider.region}:*:log-group:${self:provider.environment.CLOUDWATCH_LOG_GROUP}:*
+
   tracing:
     lambda: true
 
@@ -82,6 +101,7 @@ functions:
 
 resources:
   Resources:
+    # Tabla DynamoDB principal
     FusionadosTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -93,3 +113,111 @@ resources:
           - AttributeName: id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
+
+    ############################################
+    #    FUSIONADOS: ApiKey + UsagePlan + Key  #
+    ############################################
+
+    ApiKeyFusionados:
+      Type: AWS::ApiGateway::ApiKey
+      Properties:
+        Name: keyFusionados
+        Enabled: true
+        Value: fusionados-secret-key-123
+        StageKeys:
+          - RestApiId:
+              Ref: ApiGatewayRestApi
+            StageName: ${self:provider.stage}
+
+    PlanFusionados:
+      Type: AWS::ApiGateway::UsagePlan
+      Properties:
+        UsagePlanName: plan-fusionados-${self:provider.stage}
+        Throttle:
+          RateLimit: 10 # 10 req/s
+          BurstLimit: 20 # ráfaga 20
+        ApiStages:
+          - ApiId:
+              Ref: ApiGatewayRestApi
+            Stage: ${self:provider.stage}
+
+    KeyToPlanFusionados:
+      Type: AWS::ApiGateway::UsagePlanKey
+      Properties:
+        KeyId:
+          Ref: ApiKeyFusionados
+        KeyType: API_KEY
+        UsagePlanId:
+          Ref: PlanFusionados
+
+    ############################################
+    #    ALMACENAR: ApiKey + UsagePlan + Key  #
+    ############################################
+
+    ApiKeyAlmacenar:
+      Type: AWS::ApiGateway::ApiKey
+      Properties:
+        Name: keyAlmacenar
+        Enabled: true
+        Value: almacenar-secret-key-456
+        StageKeys:
+          - RestApiId:
+              Ref: ApiGatewayRestApi
+            StageName: ${self:provider.stage}
+
+    PlanAlmacenar:
+      Type: AWS::ApiGateway::UsagePlan
+      Properties:
+        UsagePlanName: plan-almacenar-${self:provider.stage}
+        Throttle:
+          RateLimit: 5 # 5 req/s
+          BurstLimit: 10 # ráfaga 10
+        ApiStages:
+          - ApiId:
+              Ref: ApiGatewayRestApi
+            Stage: ${self:provider.stage}
+
+    KeyToPlanAlmacenar:
+      Type: AWS::ApiGateway::UsagePlanKey
+      Properties:
+        KeyId:
+          Ref: ApiKeyAlmacenar
+        KeyType: API_KEY
+        UsagePlanId:
+          Ref: PlanAlmacenar
+
+    ############################################
+    #    HISTORIAL: ApiKey + UsagePlan + Key  #
+    ############################################
+
+    ApiKeyHistorial:
+      Type: AWS::ApiGateway::ApiKey
+      Properties:
+        Name: keyHistorial
+        Enabled: true
+        Value: historial-secret-key-789
+        StageKeys:
+          - RestApiId:
+              Ref: ApiGatewayRestApi
+            StageName: ${self:provider.stage}
+
+    PlanHistorial:
+      Type: AWS::ApiGateway::UsagePlan
+      Properties:
+        UsagePlanName: plan-historial-${self:provider.stage}
+        Throttle:
+          RateLimit: 8 # 8 req/s
+          BurstLimit: 16 # ráfaga 16
+        ApiStages:
+          - ApiId:
+              Ref: ApiGatewayRestApi
+            Stage: ${self:provider.stage}
+
+    KeyToPlanHistorial:
+      Type: AWS::ApiGateway::UsagePlanKey
+      Properties:
+        KeyId:
+          Ref: ApiKeyHistorial
+        KeyType: API_KEY
+        UsagePlanId:
+          Ref: PlanHistorial

@@ -9,6 +9,7 @@ import fs from "fs";
 import path from "path";
 import mime from "mime-types";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { logToCloudWatch } from "../utils/cloudwatchLogger"; // Importa el logger
 
 // Ruta base de la distribución de swagger-ui-dist
 const swaggerDistPath = path.dirname(
@@ -54,6 +55,9 @@ export const handler = async (
 ): Promise<APIGatewayProxyResult> => {
   const reqPath = event.path ?? "";
 
+  // Log de la ruta solicitada
+  await logToCloudWatch(`Ruta solicitada: ${reqPath}`, "INFO");
+
   // Ruta principal /docs o /docs/
   if (reqPath === "/docs" || reqPath === "/docs/") {
     const index = path.join(swaggerDistPath, "index.html");
@@ -90,6 +94,9 @@ window.onload = function() {
       (_m, attr, file) => `${attr}="${ROOT}${file}"`
     );
 
+    // Log de respuesta generada para /docs
+    await logToCloudWatch("Respuesta generada para /docs", "INFO");
+
     return {
       statusCode: 200,
       headers: { "Content-Type": "text/html" },
@@ -99,6 +106,7 @@ window.onload = function() {
 
   // Ruta específica para servir el archivo openapi.json
   if (reqPath === "/docs/openapi.json") {
+    await logToCloudWatch("Solicitud recibida para openapi.json", "INFO");
     return serveFile(openApiPath);
   }
 
@@ -106,14 +114,22 @@ window.onload = function() {
   if (reqPath.startsWith("/docs/")) {
     const rel = reqPath.replace(/^\/docs\//, "");
     const file = path.join(swaggerDistPath, rel);
-    if (fs.existsSync(file)) return serveFile(file);
+    if (fs.existsSync(file)) {
+      await logToCloudWatch(`Archivo estático encontrado: ${file}`, "INFO");
+      return serveFile(file);
+    }
   }
 
   // Compatibilidad con carga relativa desde la raíz del stage
   const rootRel = reqPath.replace(new RegExp(`^/${STAGE}/`), "");
   const rootFile = path.join(swaggerDistPath, rootRel);
-  if (fs.existsSync(rootFile)) return serveFile(rootFile);
+  if (fs.existsSync(rootFile)) {
+    await logToCloudWatch(`Archivo estático encontrado: ${rootFile}`, "INFO");
+    return serveFile(rootFile);
+  }
 
   // Si no se encontró el archivo o ruta, retornar 404
+  await logToCloudWatch(`Ruta no encontrada: ${reqPath}`, "ERROR");
+
   return { statusCode: 404, body: "No encontrado" };
 };

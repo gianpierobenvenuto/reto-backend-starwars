@@ -1,15 +1,24 @@
 service: reto-backend-starwars
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
   memorySize: 128
   timeout: 10
+  apiGateway:
+    usagePlan:
+      throttle:
+        rateLimit: 50
+        burstLimit: 100
   environment:
-    DYNAMO_TABLE: ${self:service}-${opt:stage, 'dev'}-fusionadosTable
-    WEATHER_API_KEY: edcfd734b6ec4a8de3bb64b5d9d53de6
-    JWT_SECRET: reto_backend_starwars_rimac_1234567890
+    DYNAMO_TABLE: ${env:DYNAMO_TABLE}
+    WEATHER_API_KEY: ${env:WEATHER_API_KEY}
+    JWT_SECRET: ${env:JWT_SECRET}
+    CLOUDWATCH_LOG_GROUP: ${env:CLOUDWATCH_LOG_GROUP}
+    CLOUDWATCH_LOG_STREAM: ${env:CLOUDWATCH_LOG_STREAM}
   iam:
     role:
       statements:
@@ -20,6 +29,11 @@ provider:
             - dynamodb:Scan
           Resource:
             - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMO_TABLE}
+        - Effect: Allow
+          Action:
+            - logs:PutLogEvents
+            - logs:CreateLogStream
+          Resource: arn:aws:logs:${self:provider.region}:*:log-group:${self:provider.environment.CLOUDWATCH_LOG_GROUP}:*
   tracing:
     lambda: true
 

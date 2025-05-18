@@ -13,6 +13,11 @@ import {
   Callback,
 } from "aws-lambda";
 
+// tests/historial.test.ts
+jest.mock("../src/utils/cloudwatchLogger", () => ({
+  logToCloudWatch: jest.fn(),
+}));
+
 // Mock de la función verifyToken para simular siempre autenticación válida
 jest.mock("../src/utils/auth", () => ({
   verifyToken: jest.fn(() => ({ valid: true })),
@@ -50,16 +55,8 @@ describe("handler de historial", () => {
       queryStringParameters: { limit: "5" },
     } as unknown as APIGatewayProxyEvent;
 
-    // Contexto y callback dummy para cumplir la firma del handler
-    const context = {} as Context;
-    const callback = (() => {}) as Callback<APIGatewayProxyResult>;
-
-    // Ejecutar el handler
-    const result = (await handler(
-      event,
-      context,
-      callback
-    )) as APIGatewayProxyResult;
+    // Ejecutar el handler solo con el evento
+    const result = (await handler(event)) as APIGatewayProxyResult;
     const body = JSON.parse(result.body);
 
     // Validaciones de la respuesta

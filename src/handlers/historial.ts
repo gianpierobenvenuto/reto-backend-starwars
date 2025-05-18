@@ -6,11 +6,12 @@
  * @author Gianpiero Benvenuto
  */
 
-import { APIGatewayProxyHandler } from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { z, ZodError } from "zod";
 import { verifyToken } from "../utils/auth";
+import { logToCloudWatch } from "../utils/cloudwatchLogger";
 
 // Nombre de la tabla a consultar
 const TABLE_NAME = process.env.DYNAMO_TABLE!;
@@ -31,12 +32,19 @@ const querySchema = z.object({
  * Lambda principal para recuperar historial de planetas fusionados.
  * Aplica autenticación, validación de parámetros y paginación con LastEvaluatedKey.
  */
-export const handler: APIGatewayProxyHandler = async (event) => {
+export const handler = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+  // Log de la solicitud entrante
+  await logToCloudWatch(`Ruta solicitada: ${event.path}`, "INFO");
+
   // Verificar token JWT
-  const auth = verifyToken(event);
+  const auth = await verifyToken(event);
   if (!auth.valid) {
+    await logToCloudWatch(`Autenticación fallida: ${auth.error}`, "ERROR");
     return {
       statusCode: 401,
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ error: auth.error }),
     };
   }
@@ -45,56 +53,60 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     // Validar y extraer parámetros de consulta
     const query = querySchema.parse(event.queryStringParameters || {});
     const limit = query.limit ?? 10;
-
-    // Si se incluye un lastKey (paginación), decodificarlo
     const lastKey = query.lastKey
       ? JSON.parse(decodeURIComponent(query.lastKey))
       : undefined;
+
+    await logToCloudWatch(
+      `Parámetros de consulta validados: limit=${limit}, lastKey=${query.lastKey}`,
+      "INFO"
+    );
 
     // Construir parámetros de escaneo en DynamoDB
     const params: any = {
       TableName: TABLE_NAME,
       Limit: limit,
     };
-
-    if (lastKey) {
-      params.ExclusiveStartKey = lastKey;
-    }
+    if (lastKey) params.ExclusiveStartKey = lastKey;
 
     // Ejecutar escaneo
-    const command = new ScanCommand(params);
-    const response = await client.send(command);
-
-    // Transformar resultados desde formato DynamoDB a objetos JS
-    const items = response.Items
-      ? response.Items.map((item) => unmarshall(item))
-      : [];
-
-    // Ordenar los resultados por timestamp descendente (más recientes primero)
+    const dbResponse = await client.send(new ScanCommand(params));
+    const items = (dbResponse.Items ?? []).map((i) => unmarshall(i));
     items.sort((a, b) => b.timestamp - a.timestamp);
+
+    await logToCloudWatch(
+      `Enviando respuesta con ${items.length} items`,
+      "INFO"
+    );
 
     return {
       statusCode: 200,
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         items,
-        // Enviar nueva lastKey para la siguiente página si existe
-        lastKey: response.LastEvaluatedKey
-          ? encodeURIComponent(JSON.stringify(response.LastEvaluatedKey))
+        lastKey: dbResponse.LastEvaluatedKey
+          ? encodeURIComponent(JSON.stringify(dbResponse.LastEvaluatedKey))
           : null,
       }),
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof ZodError) {
+      const msg = error.errors.map((e) => e.message).join(", ");
+      await logToCloudWatch(`Errores de validación: ${msg}`, "ERROR");
       return {
         statusCode: 400,
-        body: JSON.stringify({
-          error: error.errors.map((e) => e.message).join(", "),
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: msg }),
       };
     }
+
+    const message =
+      error instanceof Error ? error.message : "Error desconocido";
+    await logToCloudWatch(`Error interno del servidor: ${message}`, "ERROR");
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: message }),
     };
   }
 };

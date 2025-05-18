@@ -7,6 +7,11 @@
 import { handler } from "../src/handlers/docs";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
+// tests/docs.test.ts
+jest.mock("../src/utils/cloudwatchLogger", () => ({
+  logToCloudWatch: jest.fn(),
+}));
+
 describe("handler de docs", () => {
   it("debería devolver 404 para rutas desconocidas", async () => {
     // Simular evento con ruta que no existe en /docs

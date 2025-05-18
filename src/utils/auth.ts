@@ -8,6 +8,7 @@
 
 import { APIGatewayProxyEvent } from "aws-lambda";
 import jwt from "jsonwebtoken";
+import { logToCloudWatch } from "../utils/cloudwatchLogger"; // Importa el logger
 
 // Clave secreta para verificar el JWT (proporcionada por variable de entorno)
 const SECRET_KEY = process.env.JWT_SECRET;
@@ -19,17 +20,22 @@ const SECRET_KEY = process.env.JWT_SECRET;
  * @param event Evento de API Gateway con encabezados HTTP
  * @returns Objeto con campos `valid`, `payload` (opcional) y `error` (opcional)
  */
-export function verifyToken(event: APIGatewayProxyEvent): {
+export async function verifyToken(event: APIGatewayProxyEvent): Promise<{
   valid: boolean;
   payload?: any;
   error?: string;
-} {
+}> {
+  // Log de inicio de la verificación del token
+  await logToCloudWatch("Verificando el token JWT recibido", "INFO");
+
   // Verificar que se haya configurado la clave secreta en el entorno
   if (!SECRET_KEY) {
+    const errorMessage =
+      "Configuración incorrecta del servidor: JWT_SECRET no está definido";
+    await logToCloudWatch(errorMessage, "ERROR");
     return {
       valid: false,
-      error:
-        "Configuración incorrecta del servidor: JWT_SECRET no está definido",
+      error: errorMessage,
     };
   }
 
@@ -38,23 +44,30 @@ export function verifyToken(event: APIGatewayProxyEvent): {
     event.headers?.Authorization || event.headers?.authorization;
 
   if (!authHeader) {
-    return { valid: false, error: "Encabezado de autorización ausente" };
+    const errorMessage = "Encabezado de autorización ausente";
+    await logToCloudWatch(errorMessage, "ERROR");
+    return { valid: false, error: errorMessage };
   }
 
   // Separar el token del esquema Bearer
   const token = authHeader.split(" ")[1];
   if (!token) {
+    const errorMessage = "Token ausente en el encabezado de autorización";
+    await logToCloudWatch(errorMessage, "ERROR");
     return {
       valid: false,
-      error: "Token ausente en el encabezado de autorización",
+      error: errorMessage,
     };
   }
 
   // Verificar el token
   try {
     const payload = jwt.verify(token, SECRET_KEY);
+    await logToCloudWatch("Token verificado con éxito", "INFO");
     return { valid: true, payload };
   } catch (err) {
-    return { valid: false, error: "Token inválido" };
+    const errorMessage = "Token inválido";
+    await logToCloudWatch(errorMessage, "ERROR");
+    return { valid: false, error: errorMessage };
   }
 }
