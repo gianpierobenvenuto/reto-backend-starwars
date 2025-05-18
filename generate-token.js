@@ -7,6 +7,6 @@ const payload = {
   role: "admin",
 };
 
-const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
+const token = jwt.sign(payload, SECRET_KEY);
 
 console.log("JWT Token:", token);

@@ -153,13 +153,13 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-                  "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+                  "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
                 },
                 "Handler": "src/handlers/docs.handler",
                 "Runtime": "nodejs20.x",
                 "FunctionName": "reto-backend-starwars-dev-docs",
                 "MemorySize": 128,
-                "Timeout": 10,
+                "Timeout": 5,
                 "Environment": {
                   "Variables": {
                     "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -184,13 +184,13 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-                  "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+                  "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
                 },
                 "Handler": "src/handlers/fusionados.handler",
                 "Runtime": "nodejs20.x",
                 "FunctionName": "reto-backend-starwars-dev-fusionados",
-                "MemorySize": 128,
-                "Timeout": 10,
+                "MemorySize": 512,
+                "Timeout": 5,
                 "Environment": {
                   "Variables": {
                     "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -215,13 +215,13 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-                  "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+                  "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
                 },
                 "Handler": "src/handlers/almacenar.handler",
                 "Runtime": "nodejs20.x",
                 "FunctionName": "reto-backend-starwars-dev-almacenar",
-                "MemorySize": 128,
-                "Timeout": 10,
+                "MemorySize": 256,
+                "Timeout": 5,
                 "Environment": {
                   "Variables": {
                     "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -246,13 +246,13 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-                  "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+                  "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
                 },
                 "Handler": "src/handlers/historial.handler",
                 "Runtime": "nodejs20.x",
                 "FunctionName": "reto-backend-starwars-dev-historial",
-                "MemorySize": 128,
-                "Timeout": 10,
+                "MemorySize": 256,
+                "Timeout": 5,
                 "Environment": {
                   "Variables": {
                     "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -272,44 +272,44 @@
                 "HistorialLogGroup"
               ]
             },
-            "DocsLambdaVersionO5jSNsMKpMLZHOLwNUZgBbcoGGbGOY1SmaYPvfH9Y": {
+            "DocsLambdaVersionWntL9nYwASc9licge56TokZ6W3YYFvlPCpQXJnmeuWI": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "DocsLambdaFunction"
                 },
-                "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+                "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
               }
             },
-            "FusionadosLambdaVersionxB5fIgmVIuHUCA0qMkDB1LG7bNgINQzl1hUQAJ9fQI": {
+            "FusionadosLambdaVersionSot1UUJ8ziKDyoYd021qJLu0qkPqGBftPUltVZR4pM": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "FusionadosLambdaFunction"
                 },
-                "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+                "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
               }
             },
-            "AlmacenarLambdaVersionZgaAjG0gSeZkh0L6Ej9ezK9zgtinPZPxsnZaZGl8": {
+            "AlmacenarLambdaVersionHAzUqCF9wP0NI1X6XQTaY8VIFrEdOVR17X9eRJqGWw": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "AlmacenarLambdaFunction"
                 },
-                "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+                "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
               }
             },
-            "HistorialLambdaVersion8uIRIB5JpJMOyI99DxQk4mrSfK1Sfc6V3g8L7NQQKSk": {
+            "HistorialLambdaVersion90LrPjBTA3vLfAmMvffuhYwEx1P0f0GH4YtoMf72k": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "HistorialLambdaFunction"
                 },
-                "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+                "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
               }
             },
             "ApiGatewayRestApi": {
@@ -421,141 +421,6 @@
                   ]
                 },
                 "PathPart": "historial",
-                "RestApiId": {
-                  "Ref": "ApiGatewayRestApi"
-                }
-              }
-            },
-            "ApiGatewayMethodFusionadosOptions": {
-              "Type": "AWS::ApiGateway::Method",
-              "Properties": {
-                "AuthorizationType": "NONE",
-                "HttpMethod": "OPTIONS",
-                "MethodResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": true,
-                      "method.response.header.Access-Control-Allow-Headers": true,
-                      "method.response.header.Access-Control-Allow-Methods": true
-                    },
-                    "ResponseModels": {}
-                  }
-                ],
-                "RequestParameters": {},
-                "Integration": {
-                  "Type": "MOCK",
-                  "RequestTemplates": {
-                    "application/json": "{statusCode:200}"
-                  },
-                  "ContentHandling": "CONVERT_TO_TEXT",
-                  "IntegrationResponses": [
-                    {
-                      "StatusCode": "200",
-                      "ResponseParameters": {
-                        "method.response.header.Access-Control-Allow-Origin": "'*'",
-                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
-                      },
-                      "ResponseTemplates": {
-                        "application/json": ""
-                      }
-                    }
-                  ]
-                },
-                "ResourceId": {
-                  "Ref": "ApiGatewayResourceFusionados"
-                },
-                "RestApiId": {
-                  "Ref": "ApiGatewayRestApi"
-                }
-              }
-            },
-            "ApiGatewayMethodAlmacenarOptions": {
-              "Type": "AWS::ApiGateway::Method",
-              "Properties": {
-                "AuthorizationType": "NONE",
-                "HttpMethod": "OPTIONS",
-                "MethodResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": true,
-                      "method.response.header.Access-Control-Allow-Headers": true,
-                      "method.response.header.Access-Control-Allow-Methods": true
-                    },
-                    "ResponseModels": {}
-                  }
-                ],
-                "RequestParameters": {},
-                "Integration": {
-                  "Type": "MOCK",
-                  "RequestTemplates": {
-                    "application/json": "{statusCode:200}"
-                  },
-                  "ContentHandling": "CONVERT_TO_TEXT",
-                  "IntegrationResponses": [
-                    {
-                      "StatusCode": "200",
-                      "ResponseParameters": {
-                        "method.response.header.Access-Control-Allow-Origin": "'*'",
-                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
-                      },
-                      "ResponseTemplates": {
-                        "application/json": ""
-                      }
-                    }
-                  ]
-                },
-                "ResourceId": {
-                  "Ref": "ApiGatewayResourceAlmacenar"
-                },
-                "RestApiId": {
-                  "Ref": "ApiGatewayRestApi"
-                }
-              }
-            },
-            "ApiGatewayMethodHistorialOptions": {
-              "Type": "AWS::ApiGateway::Method",
-              "Properties": {
-                "AuthorizationType": "NONE",
-                "HttpMethod": "OPTIONS",
-                "MethodResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": true,
-                      "method.response.header.Access-Control-Allow-Headers": true,
-                      "method.response.header.Access-Control-Allow-Methods": true
-                    },
-                    "ResponseModels": {}
-                  }
-                ],
-                "RequestParameters": {},
-                "Integration": {
-                  "Type": "MOCK",
-                  "RequestTemplates": {
-                    "application/json": "{statusCode:200}"
-                  },
-                  "ContentHandling": "CONVERT_TO_TEXT",
-                  "IntegrationResponses": [
-                    {
-                      "StatusCode": "200",
-                      "ResponseParameters": {
-                        "method.response.header.Access-Control-Allow-Origin": "'*'",
-                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
-                      },
-                      "ResponseTemplates": {
-                        "application/json": ""
-                      }
-                    }
-                  ]
-                },
-                "ResourceId": {
-                  "Ref": "ApiGatewayResourceHistorial"
-                },
                 "RestApiId": {
                   "Ref": "ApiGatewayRestApi"
                 }
@@ -883,7 +748,7 @@
                 "HistorialLambdaPermissionApiGateway"
               ]
             },
-            "ApiGatewayDeployment1747515212162": {
+            "ApiGatewayDeployment1747578269226": {
               "Type": "AWS::ApiGateway::Deployment",
               "Properties": {
                 "RestApiId": {
@@ -892,9 +757,6 @@
                 "StageName": "dev"
               },
               "DependsOn": [
-                "ApiGatewayMethodFusionadosOptions",
-                "ApiGatewayMethodAlmacenarOptions",
-                "ApiGatewayMethodHistorialOptions",
                 "ApiGatewayMethodDocsGet",
                 "ApiGatewayMethodDocsProxyVarGet",
                 "ApiGatewayMethodAssetVarGet",
@@ -1082,7 +944,7 @@
             "DocsLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "DocsLambdaVersionO5jSNsMKpMLZHOLwNUZgBbcoGGbGOY1SmaYPvfH9Y"
+                "Ref": "DocsLambdaVersionWntL9nYwASc9licge56TokZ6W3YYFvlPCpQXJnmeuWI"
               },
               "Export": {
                 "Name": "sls-reto-backend-starwars-dev-DocsLambdaFunctionQualifiedArn"
@@ -1091,7 +953,7 @@
             "FusionadosLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "FusionadosLambdaVersionxB5fIgmVIuHUCA0qMkDB1LG7bNgINQzl1hUQAJ9fQI"
+                "Ref": "FusionadosLambdaVersionSot1UUJ8ziKDyoYd021qJLu0qkPqGBftPUltVZR4pM"
               },
               "Export": {
                 "Name": "sls-reto-backend-starwars-dev-FusionadosLambdaFunctionQualifiedArn"
@@ -1100,7 +962,7 @@
             "AlmacenarLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "AlmacenarLambdaVersionZgaAjG0gSeZkh0L6Ej9ezK9zgtinPZPxsnZaZGl8"
+                "Ref": "AlmacenarLambdaVersionHAzUqCF9wP0NI1X6XQTaY8VIFrEdOVR17X9eRJqGWw"
               },
               "Export": {
                 "Name": "sls-reto-backend-starwars-dev-AlmacenarLambdaFunctionQualifiedArn"
@@ -1109,7 +971,7 @@
             "HistorialLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "HistorialLambdaVersion8uIRIB5JpJMOyI99DxQk4mrSfK1Sfc6V3g8L7NQQKSk"
+                "Ref": "HistorialLambdaVersion90LrPjBTA3vLfAmMvffuhYwEx1P0f0GH4YtoMf72k"
               },
               "Export": {
                 "Name": "sls-reto-backend-starwars-dev-HistorialLambdaFunctionQualifiedArn"
@@ -1153,11 +1015,13 @@
         "artifactsS3KeyDirname": "serverless/reto-backend-starwars/dev/code-artifacts",
         "deploymentBucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
         "artifact": "E:\\OneDrive - Just Great Systems\\Desktop\\Softtek\\Reto\\reto-backend-starwars\\.serverless\\build\\reto-backend-starwars.zip",
-        "artifactDirectoryName": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z"
+        "artifactDirectoryName": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z"
       },
       "functions": {
         "docs": {
           "handler": "src/handlers/docs.handler",
+          "memorySize": 128,
+          "timeout": 5,
           "events": [
             {
               "http": {
@@ -1194,35 +1058,19 @@
           },
           "package": {},
           "memory": 128,
-          "timeout": 10,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "DocsLambdaVersionO5jSNsMKpMLZHOLwNUZgBbcoGGbGOY1SmaYPvfH9Y"
+          "versionLogicalId": "DocsLambdaVersionWntL9nYwASc9licge56TokZ6W3YYFvlPCpQXJnmeuWI"
         },
         "fusionados": {
           "handler": "src/handlers/fusionados.handler",
+          "memorySize": 512,
+          "timeout": 5,
           "events": [
             {
               "http": {
                 "path": "fusionados",
                 "method": "get",
-                "cors": {
-                  "origin": "*",
-                  "methods": [
-                    "OPTIONS",
-                    "GET"
-                  ],
-                  "headers": [
-                    "Content-Type",
-                    "X-Amz-Date",
-                    "Authorization",
-                    "X-Api-Key",
-                    "X-Amz-Security-Token",
-                    "X-Amz-User-Agent",
-                    "X-Amzn-Trace-Id"
-                  ],
-                  "allowCredentials": "<REDACTED>"
-                },
                 "integration": "AWS_PROXY"
               }
             }
@@ -1232,36 +1080,20 @@
             "NODE_OPTIONS": "--enable-source-maps"
           },
           "package": {},
-          "memory": 128,
-          "timeout": 10,
+          "memory": 512,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "FusionadosLambdaVersionxB5fIgmVIuHUCA0qMkDB1LG7bNgINQzl1hUQAJ9fQI"
+          "versionLogicalId": "FusionadosLambdaVersionSot1UUJ8ziKDyoYd021qJLu0qkPqGBftPUltVZR4pM"
         },
         "almacenar": {
           "handler": "src/handlers/almacenar.handler",
+          "memorySize": 256,
+          "timeout": 5,
           "events": [
             {
               "http": {
                 "path": "almacenar",
                 "method": "post",
-                "cors": {
-                  "origin": "*",
-                  "methods": [
-                    "OPTIONS",
-                    "POST"
-                  ],
-                  "headers": [
-                    "Content-Type",
-                    "X-Amz-Date",
-                    "Authorization",
-                    "X-Api-Key",
-                    "X-Amz-Security-Token",
-                    "X-Amz-User-Agent",
-                    "X-Amzn-Trace-Id"
-                  ],
-                  "allowCredentials": "<REDACTED>"
-                },
                 "integration": "AWS_PROXY"
               }
             }
@@ -1271,36 +1103,20 @@
             "NODE_OPTIONS": "--enable-source-maps"
           },
           "package": {},
-          "memory": 128,
-          "timeout": 10,
+          "memory": 256,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "AlmacenarLambdaVersionZgaAjG0gSeZkh0L6Ej9ezK9zgtinPZPxsnZaZGl8"
+          "versionLogicalId": "AlmacenarLambdaVersionHAzUqCF9wP0NI1X6XQTaY8VIFrEdOVR17X9eRJqGWw"
         },
         "historial": {
           "handler": "src/handlers/historial.handler",
+          "memorySize": 256,
+          "timeout": 5,
           "events": [
             {
               "http": {
                 "path": "historial",
                 "method": "get",
-                "cors": {
-                  "origin": "*",
-                  "methods": [
-                    "OPTIONS",
-                    "GET"
-                  ],
-                  "headers": [
-                    "Content-Type",
-                    "X-Amz-Date",
-                    "Authorization",
-                    "X-Api-Key",
-                    "X-Amz-Security-Token",
-                    "X-Amz-User-Agent",
-                    "X-Amzn-Trace-Id"
-                  ],
-                  "allowCredentials": "<REDACTED>"
-                },
                 "integration": "AWS_PROXY"
               }
             }
@@ -1310,11 +1126,10 @@
             "NODE_OPTIONS": "--enable-source-maps"
           },
           "package": {},
-          "memory": 128,
-          "timeout": 10,
+          "memory": 256,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "HistorialLambdaVersion8uIRIB5JpJMOyI99DxQk4mrSfK1Sfc6V3g8L7NQQKSk"
+          "versionLogicalId": "HistorialLambdaVersion90LrPjBTA3vLfAmMvffuhYwEx1P0f0GH4YtoMf72k"
         }
       },
       "resources": {
@@ -1340,197 +1155,6 @@
           }
         },
         "Outputs": {}
-      },
-      "plugins": [
-        "serverless-openapi-documenter"
-      ],
-      "custom": {
-        "documentation": {
-          "version": "1.0.0",
-          "title": "Star Wars Weather API - Reto Rimac",
-          "description": "API que fusiona datos de SWAPI con OpenWeather y permite almacenamiento personalizado. Desarollado por Gianpiero Benvenuto.",
-          "models": [
-            {
-              "name": "Fusionado",
-              "contentType": "application/json",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "planetName": {
-                    "type": "string"
-                  },
-                  "climate": {
-                    "type": "string"
-                  },
-                  "population": {
-                    "type": "string"
-                  },
-                  "weather": {
-                    "type": "object",
-                    "properties": {
-                      "temperatureC": {
-                        "type": "number"
-                      },
-                      "description": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "timestamp": {
-                    "type": "integer"
-                  }
-                }
-              }
-            },
-            {
-              "name": "AlmacenarRequest",
-              "contentType": "application/json",
-              "schema": {
-                "type": "object",
-                "required": [
-                  "id"
-                ],
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "Identificador único del item (obligatorio)"
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "Nombre del item (opcional)"
-                  },
-                  "description": {
-                    "type": "string",
-                    "description": "Descripción del item (opcional)"
-                  }
-                }
-              }
-            },
-            {
-              "name": "AlmacenarResponse",
-              "contentType": "application/json",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string",
-                    "example": "Item almacenado exitosamente"
-                  },
-                  "item": {
-                    "$ref": "#/components/schemas/AlmacenarRequest"
-                  }
-                }
-              }
-            },
-            {
-              "name": "ErrorResponse",
-              "contentType": "application/json",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "error": {
-                    "type": "string",
-                    "example": "Error en los datos enviados"
-                  }
-                }
-              }
-            }
-          ],
-          "paths": [
-            {
-              "path": "/fusionados",
-              "method": "get",
-              "description": "Devuelve datos combinados de Star Wars y clima actual.",
-              "tags": [
-                "Datos Fusionados"
-              ],
-              "request": {
-                "parameters": {
-                  "querystrings": {
-                    "planet": {
-                      "required": true,
-                      "type": "string"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "bodyType": "Fusionado"
-                },
-                "400": {
-                  "bodyType": "ErrorResponse"
-                },
-                "500": {
-                  "bodyType": "ErrorResponse"
-                }
-              }
-            },
-            {
-              "path": "/almacenar",
-              "method": "post",
-              "description": "Permite almacenar un ítem personalizado en la base de datos.",
-              "tags": [
-                "Almacenamiento"
-              ],
-              "request": {
-                "schemas": {
-                  "application/json": "AlmacenarRequest"
-                }
-              },
-              "responses": {
-                "201": {
-                  "bodyType": "AlmacenarResponse"
-                },
-                "400": {
-                  "bodyType": "ErrorResponse"
-                },
-                "401": {
-                  "bodyType": "ErrorResponse"
-                },
-                "500": {
-                  "bodyType": "ErrorResponse"
-                }
-              }
-            },
-            {
-              "path": "/historial",
-              "method": "get",
-              "description": "Devuelve el historial de respuestas fusionadas almacenadas.",
-              "tags": [
-                "Almacenamiento"
-              ],
-              "request": {
-                "parameters": {
-                  "querystrings": {
-                    "limit": {
-                      "required": false,
-                      "type": "number"
-                    },
-                    "lastKey": {
-                      "required": false,
-                      "type": "string"
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "bodyType": "Fusionado"
-                },
-                "400": {
-                  "bodyType": "ErrorResponse"
-                },
-                "401": {
-                  "bodyType": "ErrorResponse"
-                },
-                "500": {
-                  "bodyType": "ErrorResponse"
-                }
-              }
-            }
-          ]
-        }
       }
     },
     "provider": {
@@ -1681,13 +1305,13 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-                "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+                "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
               },
               "Handler": "src/handlers/docs.handler",
               "Runtime": "nodejs20.x",
               "FunctionName": "reto-backend-starwars-dev-docs",
               "MemorySize": 128,
-              "Timeout": 10,
+              "Timeout": 5,
               "Environment": {
                 "Variables": {
                   "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -1712,13 +1336,13 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-                "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+                "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
               },
               "Handler": "src/handlers/fusionados.handler",
               "Runtime": "nodejs20.x",
               "FunctionName": "reto-backend-starwars-dev-fusionados",
-              "MemorySize": 128,
-              "Timeout": 10,
+              "MemorySize": 512,
+              "Timeout": 5,
               "Environment": {
                 "Variables": {
                   "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -1743,13 +1367,13 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-                "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+                "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
               },
               "Handler": "src/handlers/almacenar.handler",
               "Runtime": "nodejs20.x",
               "FunctionName": "reto-backend-starwars-dev-almacenar",
-              "MemorySize": 128,
-              "Timeout": 10,
+              "MemorySize": 256,
+              "Timeout": 5,
               "Environment": {
                 "Variables": {
                   "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -1774,13 +1398,13 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-                "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+                "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
               },
               "Handler": "src/handlers/historial.handler",
               "Runtime": "nodejs20.x",
               "FunctionName": "reto-backend-starwars-dev-historial",
-              "MemorySize": 128,
-              "Timeout": 10,
+              "MemorySize": 256,
+              "Timeout": 5,
               "Environment": {
                 "Variables": {
                   "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -1800,44 +1424,44 @@
               "HistorialLogGroup"
             ]
           },
-          "DocsLambdaVersionO5jSNsMKpMLZHOLwNUZgBbcoGGbGOY1SmaYPvfH9Y": {
+          "DocsLambdaVersionWntL9nYwASc9licge56TokZ6W3YYFvlPCpQXJnmeuWI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DocsLambdaFunction"
               },
-              "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+              "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
             }
           },
-          "FusionadosLambdaVersionxB5fIgmVIuHUCA0qMkDB1LG7bNgINQzl1hUQAJ9fQI": {
+          "FusionadosLambdaVersionSot1UUJ8ziKDyoYd021qJLu0qkPqGBftPUltVZR4pM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FusionadosLambdaFunction"
               },
-              "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+              "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
             }
           },
-          "AlmacenarLambdaVersionZgaAjG0gSeZkh0L6Ej9ezK9zgtinPZPxsnZaZGl8": {
+          "AlmacenarLambdaVersionHAzUqCF9wP0NI1X6XQTaY8VIFrEdOVR17X9eRJqGWw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AlmacenarLambdaFunction"
               },
-              "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+              "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
             }
           },
-          "HistorialLambdaVersion8uIRIB5JpJMOyI99DxQk4mrSfK1Sfc6V3g8L7NQQKSk": {
+          "HistorialLambdaVersion90LrPjBTA3vLfAmMvffuhYwEx1P0f0GH4YtoMf72k": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HistorialLambdaFunction"
               },
-              "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+              "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
             }
           },
           "ApiGatewayRestApi": {
@@ -1949,141 +1573,6 @@
                 ]
               },
               "PathPart": "historial",
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayMethodFusionadosOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": ""
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceFusionados"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayMethodAlmacenarOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": ""
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceAlmacenar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayMethodHistorialOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": ""
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceHistorial"
-              },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
@@ -2411,7 +1900,7 @@
               "HistorialLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1747515212162": {
+          "ApiGatewayDeployment1747578269226": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -2420,9 +1909,6 @@
               "StageName": "dev"
             },
             "DependsOn": [
-              "ApiGatewayMethodFusionadosOptions",
-              "ApiGatewayMethodAlmacenarOptions",
-              "ApiGatewayMethodHistorialOptions",
               "ApiGatewayMethodDocsGet",
               "ApiGatewayMethodDocsProxyVarGet",
               "ApiGatewayMethodAssetVarGet",
@@ -2610,7 +2096,7 @@
           "DocsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DocsLambdaVersionO5jSNsMKpMLZHOLwNUZgBbcoGGbGOY1SmaYPvfH9Y"
+              "Ref": "DocsLambdaVersionWntL9nYwASc9licge56TokZ6W3YYFvlPCpQXJnmeuWI"
             },
             "Export": {
               "Name": "sls-reto-backend-starwars-dev-DocsLambdaFunctionQualifiedArn"
@@ -2619,7 +2105,7 @@
           "FusionadosLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FusionadosLambdaVersionxB5fIgmVIuHUCA0qMkDB1LG7bNgINQzl1hUQAJ9fQI"
+              "Ref": "FusionadosLambdaVersionSot1UUJ8ziKDyoYd021qJLu0qkPqGBftPUltVZR4pM"
             },
             "Export": {
               "Name": "sls-reto-backend-starwars-dev-FusionadosLambdaFunctionQualifiedArn"
@@ -2628,7 +2114,7 @@
           "AlmacenarLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AlmacenarLambdaVersionZgaAjG0gSeZkh0L6Ej9ezK9zgtinPZPxsnZaZGl8"
+              "Ref": "AlmacenarLambdaVersionHAzUqCF9wP0NI1X6XQTaY8VIFrEdOVR17X9eRJqGWw"
             },
             "Export": {
               "Name": "sls-reto-backend-starwars-dev-AlmacenarLambdaFunctionQualifiedArn"
@@ -2637,7 +2123,7 @@
           "HistorialLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HistorialLambdaVersion8uIRIB5JpJMOyI99DxQk4mrSfK1Sfc6V3g8L7NQQKSk"
+              "Ref": "HistorialLambdaVersion90LrPjBTA3vLfAmMvffuhYwEx1P0f0GH4YtoMf72k"
             },
             "Export": {
               "Name": "sls-reto-backend-starwars-dev-HistorialLambdaFunctionQualifiedArn"
@@ -2682,7 +2168,7 @@
       "serviceProvider": null,
       "instanceParameters": null
     },
-    "serviceRawFile": "service: reto-backend-starwars\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  region: us-east-1\n  memorySize: 128\n  timeout: 10\n  environment:\n    DYNAMO_TABLE: ${self:service}-${opt:stage, 'dev'}-fusionadosTable\n    WEATHER_API_KEY: edcfd734b6ec4a8de3bb64b5d9d53de6\n    JWT_SECRET: reto_backend_starwars_rimac_1234567890\n  iam:\n    role:\n      statements:\n        - Effect: Allow\n          Action:\n            - dynamodb:GetItem\n            - dynamodb:PutItem\n            - dynamodb:Scan\n          Resource:\n            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMO_TABLE}\n\npackage:\n  patterns:\n    - \"node_modules/swagger-ui-dist/**\"\n    - \"openapi.json\"\n\nfunctions:\n  docs:\n    handler: src/handlers/docs.handler\n    events:\n      - http:\n          path: docs\n          method: get\n      - http:\n          path: docs/{proxy+}\n          method: get\n      - http:\n          path: /{asset+}\n          method: get\n      - http:\n          path: favicon.ico\n          method: get\n\n  fusionados:\n    handler: src/handlers/fusionados.handler\n    events:\n      - http:\n          path: fusionados\n          method: get\n          cors: true\n\n  almacenar:\n    handler: src/handlers/almacenar.handler\n    events:\n      - http:\n          path: almacenar\n          method: post\n          cors: true\n\n  historial:\n    handler: src/handlers/historial.handler\n    events:\n      - http:\n          path: historial\n          method: get\n          cors: true\n\nresources:\n  Resources:\n    FusionadosTable:\n      Type: AWS::DynamoDB::Table\n      Properties:\n        TableName: ${self:provider.environment.DYNAMO_TABLE}\n        AttributeDefinitions:\n          - AttributeName: id\n            AttributeType: S\n        KeySchema:\n          - AttributeName: id\n            KeyType: HASH\n        BillingMode: PAY_PER_REQUEST\n\nplugins:\n  - serverless-openapi-documenter\n\ncustom:\n  documentation:\n    version: \"1.0.0\"\n    title: \"Star Wars Weather API - Reto Rimac\"\n    description: API que fusiona datos de SWAPI con OpenWeather y permite almacenamiento personalizado. Desarollado por Gianpiero Benvenuto.\n    models:\n      - name: Fusionado\n        contentType: application/json\n        schema:\n          type: object\n          properties:\n            planetName:\n              type: string\n            climate:\n              type: string\n            population:\n              type: string\n            weather:\n              type: object\n              properties:\n                temperatureC:\n                  type: number\n                description:\n                  type: string\n            timestamp:\n              type: integer\n\n      - name: AlmacenarRequest\n        contentType: application/json\n        schema:\n          type: object\n          required:\n            - id\n          properties:\n            id:\n              type: string\n              description: Identificador único del item (obligatorio)\n            name:\n              type: string\n              description: Nombre del item (opcional)\n            description:\n              type: string\n              description: Descripción del item (opcional)\n\n      - name: AlmacenarResponse\n        contentType: application/json\n        schema:\n          type: object\n          properties:\n            message:\n              type: string\n              example: Item almacenado exitosamente\n            item:\n              $ref: \"#/components/schemas/AlmacenarRequest\"\n\n      - name: ErrorResponse\n        contentType: application/json\n        schema:\n          type: object\n          properties:\n            error:\n              type: string\n              example: Error en los datos enviados\n\n    paths:\n      - path: /fusionados\n        method: get\n        description: Devuelve datos combinados de Star Wars y clima actual.\n        tags:\n          - Datos Fusionados\n        request:\n          parameters:\n            querystrings:\n              planet:\n                required: true\n                type: string\n        responses:\n          200:\n            bodyType: Fusionado\n          400:\n            bodyType: ErrorResponse\n          500:\n            bodyType: ErrorResponse\n\n      - path: /almacenar\n        method: post\n        description: Permite almacenar un ítem personalizado en la base de datos.\n        tags:\n          - Almacenamiento\n        request:\n          schemas:\n            application/json: AlmacenarRequest\n        responses:\n          201:\n            bodyType: AlmacenarResponse\n          400:\n            bodyType: ErrorResponse\n          401:\n            bodyType: ErrorResponse\n          500:\n            bodyType: ErrorResponse\n\n      - path: /historial\n        method: get\n        description: Devuelve el historial de respuestas fusionadas almacenadas.\n        tags:\n          - Almacenamiento\n        request:\n          parameters:\n            querystrings:\n              limit:\n                required: false\n                type: number\n              lastKey:\n                required: false\n                type: string\n        responses:\n          200:\n            bodyType: Fusionado\n          400:\n            bodyType: ErrorResponse\n          401:\n            bodyType: ErrorResponse\n          500:\n            bodyType: ErrorResponse\n",
+    "serviceRawFile": "service: reto-backend-starwars\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  region: us-east-1\n  memorySize: 128\n  timeout: 10\n  environment:\n    DYNAMO_TABLE: ${self:service}-${opt:stage, 'dev'}-fusionadosTable\n    WEATHER_API_KEY: edcfd734b6ec4a8de3bb64b5d9d53de6\n    JWT_SECRET: reto_backend_starwars_rimac_1234567890\n  iam:\n    role:\n      statements:\n        - Effect: Allow\n          Action:\n            - dynamodb:GetItem\n            - dynamodb:PutItem\n            - dynamodb:Scan\n          Resource:\n            - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMO_TABLE}\n\npackage:\n  patterns:\n    - \"node_modules/swagger-ui-dist/**\"\n    - \"openapi.json\"\n\nfunctions:\n  docs:\n    handler: src/handlers/docs.handler\n    memorySize: 128\n    timeout: 5\n    events:\n      - http:\n          path: docs\n          method: get\n      - http:\n          path: docs/{proxy+}\n          method: get\n      - http:\n          path: /{asset+}\n          method: get\n      - http:\n          path: favicon.ico\n          method: get\n\n  fusionados:\n    handler: src/handlers/fusionados.handler\n    memorySize: 512\n    timeout: 5\n    events:\n      - http:\n          path: fusionados\n          method: get\n\n  almacenar:\n    handler: src/handlers/almacenar.handler\n    memorySize: 256\n    timeout: 5\n    events:\n      - http:\n          path: almacenar\n          method: post\n\n  historial:\n    handler: src/handlers/historial.handler\n    memorySize: 256\n    timeout: 5\n    events:\n      - http:\n          path: historial\n          method: get\n\nresources:\n  Resources:\n    FusionadosTable:\n      Type: AWS::DynamoDB::Table\n      Properties:\n        TableName: ${self:provider.environment.DYNAMO_TABLE}\n        AttributeDefinitions:\n          - AttributeName: id\n            AttributeType: S\n        KeySchema:\n          - AttributeName: id\n            KeyType: HASH\n        BillingMode: PAY_PER_REQUEST\n",
     "command": [
       "deploy"
     ],
@@ -2695,30 +2181,30 @@
     "serviceProviderAwsCfStackName": "reto-backend-starwars-dev",
     "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:232110417920:stack/reto-backend-starwars-dev/e5dcbed0-327f-11f0-97f3-0afffd11a7e7",
     "serviceProviderAwsCfStackCreated": "2025-05-16T18:02:14.857Z",
-    "serviceProviderAwsCfStackUpdated": "2025-05-17T20:46:42.591Z",
+    "serviceProviderAwsCfStackUpdated": "2025-05-18T14:21:32.533Z",
     "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
         "OutputKey": "DocsLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:232110417920:function:reto-backend-starwars-dev-docs:25",
+        "OutputValue": "arn:aws:lambda:us-east-1:232110417920:function:reto-backend-starwars-dev-docs:67",
         "Description": "Current Lambda function version",
         "ExportName": "sls-reto-backend-starwars-dev-DocsLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "HistorialLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:232110417920:function:reto-backend-starwars-dev-historial:44",
+        "OutputValue": "arn:aws:lambda:us-east-1:232110417920:function:reto-backend-starwars-dev-historial:86",
         "Description": "Current Lambda function version",
         "ExportName": "sls-reto-backend-starwars-dev-HistorialLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "FusionadosLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:232110417920:function:reto-backend-starwars-dev-fusionados:44",
+        "OutputValue": "arn:aws:lambda:us-east-1:232110417920:function:reto-backend-starwars-dev-fusionados:86",
         "Description": "Current Lambda function version",
         "ExportName": "sls-reto-backend-starwars-dev-FusionadosLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "AlmacenarLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:232110417920:function:reto-backend-starwars-dev-almacenar:44",
+        "OutputValue": "arn:aws:lambda:us-east-1:232110417920:function:reto-backend-starwars-dev-almacenar:86",
         "Description": "Current Lambda function version",
         "ExportName": "sls-reto-backend-starwars-dev-AlmacenarLambdaFunctionQualifiedArn"
       },
@@ -2854,13 +2340,13 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-              "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+              "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
             },
             "Handler": "src/handlers/docs.handler",
             "Runtime": "nodejs20.x",
             "FunctionName": "reto-backend-starwars-dev-docs",
             "MemorySize": 128,
-            "Timeout": 10,
+            "Timeout": 5,
             "Environment": {
               "Variables": {
                 "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -2885,13 +2371,13 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-              "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+              "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
             },
             "Handler": "src/handlers/fusionados.handler",
             "Runtime": "nodejs20.x",
             "FunctionName": "reto-backend-starwars-dev-fusionados",
-            "MemorySize": 128,
-            "Timeout": 10,
+            "MemorySize": 512,
+            "Timeout": 5,
             "Environment": {
               "Variables": {
                 "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -2916,13 +2402,13 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-              "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+              "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
             },
             "Handler": "src/handlers/almacenar.handler",
             "Runtime": "nodejs20.x",
             "FunctionName": "reto-backend-starwars-dev-almacenar",
-            "MemorySize": 128,
-            "Timeout": 10,
+            "MemorySize": 256,
+            "Timeout": 5,
             "Environment": {
               "Variables": {
                 "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -2947,13 +2433,13 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-90883ee2-c791",
-              "S3Key": "serverless/reto-backend-starwars/dev/1747515220213-2025-05-17T20:53:40.213Z/reto-backend-starwars.zip"
+              "S3Key": "serverless/reto-backend-starwars/dev/1747578276433-2025-05-18T14:24:36.433Z/reto-backend-starwars.zip"
             },
             "Handler": "src/handlers/historial.handler",
             "Runtime": "nodejs20.x",
             "FunctionName": "reto-backend-starwars-dev-historial",
-            "MemorySize": 128,
-            "Timeout": 10,
+            "MemorySize": 256,
+            "Timeout": 5,
             "Environment": {
               "Variables": {
                 "DYNAMO_TABLE": "reto-backend-starwars-dev-fusionadosTable",
@@ -2973,44 +2459,44 @@
             "HistorialLogGroup"
           ]
         },
-        "DocsLambdaVersionO5jSNsMKpMLZHOLwNUZgBbcoGGbGOY1SmaYPvfH9Y": {
+        "DocsLambdaVersionWntL9nYwASc9licge56TokZ6W3YYFvlPCpQXJnmeuWI": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "DocsLambdaFunction"
             },
-            "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+            "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
           }
         },
-        "FusionadosLambdaVersionxB5fIgmVIuHUCA0qMkDB1LG7bNgINQzl1hUQAJ9fQI": {
+        "FusionadosLambdaVersionSot1UUJ8ziKDyoYd021qJLu0qkPqGBftPUltVZR4pM": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "FusionadosLambdaFunction"
             },
-            "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+            "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
           }
         },
-        "AlmacenarLambdaVersionZgaAjG0gSeZkh0L6Ej9ezK9zgtinPZPxsnZaZGl8": {
+        "AlmacenarLambdaVersionHAzUqCF9wP0NI1X6XQTaY8VIFrEdOVR17X9eRJqGWw": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "AlmacenarLambdaFunction"
             },
-            "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+            "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
           }
         },
-        "HistorialLambdaVersion8uIRIB5JpJMOyI99DxQk4mrSfK1Sfc6V3g8L7NQQKSk": {
+        "HistorialLambdaVersion90LrPjBTA3vLfAmMvffuhYwEx1P0f0GH4YtoMf72k": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "HistorialLambdaFunction"
             },
-            "CodeSha256": "qXHnPYEHmUjTsMJXZUMtEqoIOVr3Y2cIYZldL9B3odo="
+            "CodeSha256": "wYVnSszt2DkN8sQc75qTZFENLQIdcBnyf4IkNnAv2oU="
           }
         },
         "ApiGatewayRestApi": {
@@ -3122,141 +2608,6 @@
               ]
             },
             "PathPart": "historial",
-            "RestApiId": {
-              "Ref": "ApiGatewayRestApi"
-            }
-          }
-        },
-        "ApiGatewayMethodFusionadosOptions": {
-          "Type": "AWS::ApiGateway::Method",
-          "Properties": {
-            "AuthorizationType": "NONE",
-            "HttpMethod": "OPTIONS",
-            "MethodResponses": [
-              {
-                "StatusCode": "200",
-                "ResponseParameters": {
-                  "method.response.header.Access-Control-Allow-Origin": true,
-                  "method.response.header.Access-Control-Allow-Headers": true,
-                  "method.response.header.Access-Control-Allow-Methods": true
-                },
-                "ResponseModels": {}
-              }
-            ],
-            "RequestParameters": {},
-            "Integration": {
-              "Type": "MOCK",
-              "RequestTemplates": {
-                "application/json": "{statusCode:200}"
-              },
-              "ContentHandling": "CONVERT_TO_TEXT",
-              "IntegrationResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": "'*'",
-                    "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                    "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
-                  },
-                  "ResponseTemplates": {
-                    "application/json": ""
-                  }
-                }
-              ]
-            },
-            "ResourceId": {
-              "Ref": "ApiGatewayResourceFusionados"
-            },
-            "RestApiId": {
-              "Ref": "ApiGatewayRestApi"
-            }
-          }
-        },
-        "ApiGatewayMethodAlmacenarOptions": {
-          "Type": "AWS::ApiGateway::Method",
-          "Properties": {
-            "AuthorizationType": "NONE",
-            "HttpMethod": "OPTIONS",
-            "MethodResponses": [
-              {
-                "StatusCode": "200",
-                "ResponseParameters": {
-                  "method.response.header.Access-Control-Allow-Origin": true,
-                  "method.response.header.Access-Control-Allow-Headers": true,
-                  "method.response.header.Access-Control-Allow-Methods": true
-                },
-                "ResponseModels": {}
-              }
-            ],
-            "RequestParameters": {},
-            "Integration": {
-              "Type": "MOCK",
-              "RequestTemplates": {
-                "application/json": "{statusCode:200}"
-              },
-              "ContentHandling": "CONVERT_TO_TEXT",
-              "IntegrationResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": "'*'",
-                    "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                    "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
-                  },
-                  "ResponseTemplates": {
-                    "application/json": ""
-                  }
-                }
-              ]
-            },
-            "ResourceId": {
-              "Ref": "ApiGatewayResourceAlmacenar"
-            },
-            "RestApiId": {
-              "Ref": "ApiGatewayRestApi"
-            }
-          }
-        },
-        "ApiGatewayMethodHistorialOptions": {
-          "Type": "AWS::ApiGateway::Method",
-          "Properties": {
-            "AuthorizationType": "NONE",
-            "HttpMethod": "OPTIONS",
-            "MethodResponses": [
-              {
-                "StatusCode": "200",
-                "ResponseParameters": {
-                  "method.response.header.Access-Control-Allow-Origin": true,
-                  "method.response.header.Access-Control-Allow-Headers": true,
-                  "method.response.header.Access-Control-Allow-Methods": true
-                },
-                "ResponseModels": {}
-              }
-            ],
-            "RequestParameters": {},
-            "Integration": {
-              "Type": "MOCK",
-              "RequestTemplates": {
-                "application/json": "{statusCode:200}"
-              },
-              "ContentHandling": "CONVERT_TO_TEXT",
-              "IntegrationResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": "'*'",
-                    "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                    "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
-                  },
-                  "ResponseTemplates": {
-                    "application/json": ""
-                  }
-                }
-              ]
-            },
-            "ResourceId": {
-              "Ref": "ApiGatewayResourceHistorial"
-            },
             "RestApiId": {
               "Ref": "ApiGatewayRestApi"
             }
@@ -3584,7 +2935,7 @@
             "HistorialLambdaPermissionApiGateway"
           ]
         },
-        "ApiGatewayDeployment1747515212162": {
+        "ApiGatewayDeployment1747578269226": {
           "Type": "AWS::ApiGateway::Deployment",
           "Properties": {
             "RestApiId": {
@@ -3593,9 +2944,6 @@
             "StageName": "dev"
           },
           "DependsOn": [
-            "ApiGatewayMethodFusionadosOptions",
-            "ApiGatewayMethodAlmacenarOptions",
-            "ApiGatewayMethodHistorialOptions",
             "ApiGatewayMethodDocsGet",
             "ApiGatewayMethodDocsProxyVarGet",
             "ApiGatewayMethodAssetVarGet",
@@ -3783,7 +3131,7 @@
         "DocsLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "DocsLambdaVersionO5jSNsMKpMLZHOLwNUZgBbcoGGbGOY1SmaYPvfH9Y"
+            "Ref": "DocsLambdaVersionWntL9nYwASc9licge56TokZ6W3YYFvlPCpQXJnmeuWI"
           },
           "Export": {
             "Name": "sls-reto-backend-starwars-dev-DocsLambdaFunctionQualifiedArn"
@@ -3792,7 +3140,7 @@
         "FusionadosLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "FusionadosLambdaVersionxB5fIgmVIuHUCA0qMkDB1LG7bNgINQzl1hUQAJ9fQI"
+            "Ref": "FusionadosLambdaVersionSot1UUJ8ziKDyoYd021qJLu0qkPqGBftPUltVZR4pM"
           },
           "Export": {
             "Name": "sls-reto-backend-starwars-dev-FusionadosLambdaFunctionQualifiedArn"
@@ -3801,7 +3149,7 @@
         "AlmacenarLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "AlmacenarLambdaVersionZgaAjG0gSeZkh0L6Ej9ezK9zgtinPZPxsnZaZGl8"
+            "Ref": "AlmacenarLambdaVersionHAzUqCF9wP0NI1X6XQTaY8VIFrEdOVR17X9eRJqGWw"
           },
           "Export": {
             "Name": "sls-reto-backend-starwars-dev-AlmacenarLambdaFunctionQualifiedArn"
@@ -3810,7 +3158,7 @@
         "HistorialLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "HistorialLambdaVersion8uIRIB5JpJMOyI99DxQk4mrSfK1Sfc6V3g8L7NQQKSk"
+            "Ref": "HistorialLambdaVersion90LrPjBTA3vLfAmMvffuhYwEx1P0f0GH4YtoMf72k"
           },
           "Export": {
             "Name": "sls-reto-backend-starwars-dev-HistorialLambdaFunctionQualifiedArn"

@@ -21,7 +21,10 @@ export async function getCachedFusionado(planet: string) {
   const now = Date.now();
   const cacheAge = now - item.timestamp;
 
-  if (cacheAge > 30 * 60 * 1000) return null; // más de 30 minutos
+  // Si es de origen SWAPI, caduca a los 30 minutos
+  if (item.source !== "manual" && cacheAge > 30 * 60 * 1000) {
+    return null;
+  }
 
   return item;
 }
@@ -30,7 +33,7 @@ export async function cacheFusionado(planet: string, data: any) {
   const item = {
     id: planet,
     ...data,
-    timestamp: Date.now(),
+    timestamp: Date.now(), // sobreescribe si ya venía
   };
 
   const command = new PutItemCommand({

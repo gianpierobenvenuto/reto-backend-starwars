@@ -2,11 +2,12 @@ import { APIGatewayProxyHandler } from "aws-lambda";
 import { z, ZodError } from "zod";
 import axios from "axios";
 import { getPlanet } from "../services/swapiService";
-import { getWeatherByLatLon } from "../services/weatherService"; // adapta para consultar por coords
+import { getWeatherByLatLon } from "../services/weatherService";
 import { getCachedFusionado, cacheFusionado } from "../services/cacheService";
+import { verifyToken } from "../utils/auth";
 
 const querySchema = z.object({
-  planet: z.string().min(1, 'El parámetro "planet" es obligatorio'),
+  planeta: z.string().min(1, 'El parámetro "planeta" es obligatorio'),
 });
 
 // Función para obtener coordenadas por nombre usando Nominatim
@@ -18,7 +19,7 @@ async function getCoordinates(
       placeName
     )}&format=json&limit=1`;
     const response = await axios.get(url, {
-      headers: { "User-Agent": "StarWarsApp/1.0" }, // Nominatim recomienda usar User-Agent
+      headers: { "User-Agent": "StarWarsApp/1.0" },
     });
     if (response.data.length === 0) return null;
     return { lat: response.data[0].lat, lon: response.data[0].lon };
@@ -28,9 +29,18 @@ async function getCoordinates(
 }
 
 export const handler: APIGatewayProxyHandler = async (event) => {
+  // ✅ Verifica el token JWT
+  const auth = verifyToken(event);
+  if (!auth.valid) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify({ error: auth.error }),
+    };
+  }
+
   try {
     const query = querySchema.parse(event.queryStringParameters || {});
-    const planet = query.planet.toLowerCase();
+    const planet = query.planeta.toLowerCase();
 
     const cached = await getCachedFusionado(planet);
     if (cached) {
@@ -41,16 +51,11 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     }
 
     const planetData = await getPlanet(planet);
-
-    // Intentamos obtener coordenadas dinámicas del planeta para clima real
     const coords = await getCoordinates(planetData.name);
-    let weatherData;
-    if (coords) {
-      weatherData = await getWeatherByLatLon(coords.lat, coords.lon);
-    } else {
-      // fallback si no encontramos coords
-      weatherData = await getWeatherByLatLon("0", "0"); // o una ciudad genérica
-    }
+
+    const weatherData = coords
+      ? await getWeatherByLatLon(coords.lat, coords.lon)
+      : await getWeatherByLatLon("0", "0");
 
     const fusionado = {
       planetName: planetData.name,
@@ -58,6 +63,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
       population: planetData.population,
       weather: weatherData,
       timestamp: Date.now(),
+      source: "swapi",
     };
 
     await cacheFusionado(planet, fusionado);

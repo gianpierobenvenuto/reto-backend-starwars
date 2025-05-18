@@ -83,6 +83,7 @@ plugins:
 
 custom:
   documentation:
+    generateOnDeploy: true
     version: "1.0.0"
     title: Star Wars Weather API
     description: API que fusiona datos de SWAPI con OpenWeather y permite almacenamiento personalizado. Hecho por Gianpiero Benvenuto.

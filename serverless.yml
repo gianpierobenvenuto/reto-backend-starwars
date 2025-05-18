@@ -29,6 +29,8 @@ package:
 functions:
   docs:
     handler: src/handlers/docs.handler
+    memorySize: 128
+    timeout: 5
     events:
       - http:
           path: docs
@@ -45,27 +47,30 @@ functions:
 
   fusionados:
     handler: src/handlers/fusionados.handler
+    memorySize: 512
+    timeout: 5
     events:
       - http:
           path: fusionados
           method: get
-          cors: true
 
   almacenar:
     handler: src/handlers/almacenar.handler
+    memorySize: 256
+    timeout: 5
     events:
       - http:
           path: almacenar
           method: post
-          cors: true
 
   historial:
     handler: src/handlers/historial.handler
+    memorySize: 256
+    timeout: 5
     events:
       - http:
           path: historial
           method: get
-          cors: true
 
 resources:
   Resources:
@@ -80,132 +85,3 @@ resources:
           - AttributeName: id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-
-plugins:
-  - serverless-openapi-documenter
-
-custom:
-  documentation:
-    version: "1.0.0"
-    title: "Star Wars Weather API - Reto Rimac"
-    description: API que fusiona datos de SWAPI con OpenWeather y permite almacenamiento personalizado. Desarollado por Gianpiero Benvenuto.
-    models:
-      - name: Fusionado
-        contentType: application/json
-        schema:
-          type: object
-          properties:
-            planetName:
-              type: string
-            climate:
-              type: string
-            population:
-              type: string
-            weather:
-              type: object
-              properties:
-                temperatureC:
-                  type: number
-                description:
-                  type: string
-            timestamp:
-              type: integer
-
-      - name: AlmacenarRequest
-        contentType: application/json
-        schema:
-          type: object
-          required:
-            - id
-          properties:
-            id:
-              type: string
-              description: Identificador único del item (obligatorio)
-            name:
-              type: string
-              description: Nombre del item (opcional)
-            description:
-              type: string
-              description: Descripción del item (opcional)
-
-      - name: AlmacenarResponse
-        contentType: application/json
-        schema:
-          type: object
-          properties:
-            message:
-              type: string
-              example: Item almacenado exitosamente
-            item:
-              $ref: "#/components/schemas/AlmacenarRequest"
-
-      - name: ErrorResponse
-        contentType: application/json
-        schema:
-          type: object
-          properties:
-            error:
-              type: string
-              example: Error en los datos enviados
-
-    paths:
-      - path: /fusionados
-        method: get
-        description: Devuelve datos combinados de Star Wars y clima actual.
-        tags:
-          - Datos Fusionados
-        request:
-          parameters:
-            querystrings:
-              planet:
-                required: true
-                type: string
-        responses:
-          200:
-            bodyType: Fusionado
-          400:
-            bodyType: ErrorResponse
-          500:
-            bodyType: ErrorResponse
-
-      - path: /almacenar
-        method: post
-        description: Permite almacenar un ítem personalizado en la base de datos.
-        tags:
-          - Almacenamiento
-        request:
-          schemas:
-            application/json: AlmacenarRequest
-        responses:
-          201:
-            bodyType: AlmacenarResponse
-          400:
-            bodyType: ErrorResponse
-          401:
-            bodyType: ErrorResponse
-          500:
-            bodyType: ErrorResponse
-
-      - path: /historial
-        method: get
-        description: Devuelve el historial de respuestas fusionadas almacenadas.
-        tags:
-          - Almacenamiento
-        request:
-          parameters:
-            querystrings:
-              limit:
-                required: false
-                type: number
-              lastKey:
-                required: false
-                type: string
-        responses:
-          200:
-            bodyType: Fusionado
-          400:
-            bodyType: ErrorResponse
-          401:
-            bodyType: ErrorResponse
-          500:
-            bodyType: ErrorResponse
