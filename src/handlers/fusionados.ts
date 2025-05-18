@@ -44,7 +44,7 @@ async function getCoordinates(
 /**
  * Lambda principal para fusionar información del planeta y su clima.
  * Endpoint: GET /fusionados?planeta=Tatooine
- * Autenticación: Requiere JWT en el encabezado Authorization.
+ * Autenticación: Requiere JWT en el encabezado de autorización.
  * Lógica:
  *   - Valida parámetro "planeta"
  *   - Verifica cache de consulta

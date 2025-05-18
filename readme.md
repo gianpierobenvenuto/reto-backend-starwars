@@ -15,7 +15,7 @@ Esta API permite consultar información combinada entre un planeta del universo 
 
 ## Endpoints
 
-GET /fusionados: Consulta datos desde SWAPI y una API de clima, y los fusiona en una sola respuesta. Acepta como parámetro de consulta `planeta` (string, requerido), correspondiente al nombre del planeta. Requiere token JWT válido en el encabezado Authorization. Si la consulta fue realizada en los últimos 30 minutos, se retorna el resultado desde el sistema de cacheo en DynamoDB. La respuesta contiene un objeto combinado con información del planeta y el clima correspondiente.
+GET /fusionados: Consulta datos desde SWAPI y una API de clima, y los fusiona en una sola respuesta. Acepta como parámetro de consulta `planeta` (string, requerido), correspondiente al nombre del planeta. Requiere token JWT válido en el encabezado de autorización. Si la consulta fue realizada en los últimos 30 minutos, se retorna el resultado desde el sistema de cacheo en DynamoDB. La respuesta contiene un objeto combinado con información del planeta y el clima correspondiente.
 
 POST /almacenar: Permite almacenar un planeta personalizado con datos ingresados manualmente, junto con el clima correspondiente obtenido por nombre. Requiere un cuerpo JSON con los campos `id` (string, requerido), `planetName` (string, requerido), `climate` (string, requerido), y `population` (string, opcional). Este endpoint también requiere token JWT válido.
 
@@ -38,9 +38,9 @@ JWT_SECRET=tu_secreto_jwt_aqui
 
 ## Autenticación
 
-Este proyecto utiliza autenticación mediante JSON Web Tokens (JWT). Todos los endpoints protegidos requieren incluir el token en el encabezado Authorization. La lógica de validación del token se encuentra implementada en `utils/auth.ts`.
+Este proyecto utiliza autenticación mediante JSON Web Tokens (JWT). Todos los endpoints protegidos requieren incluir el token en el encabezado de autorización. La lógica de validación del token se encuentra implementada en `utils/auth.ts`.
 
-**Token de ejemplo para pruebas**: Para realizar pruebas en la API mediante Swagger UI, puedes utilizar el siguiente token JWT de ejemplo:
+**[Token de ejemplo para pruebas](#demo-token)**: Para realizar pruebas en la API mediante Swagger UI, puedes utilizar el siguiente token JWT de ejemplo:
 
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0LXVzZXIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NDc1MzM2Mjl9.998nuhaNHvaYuYWmAmxMCED3EkDRQGwOTl8MhW2BVWk

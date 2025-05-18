@@ -13,7 +13,7 @@ import jwt from "jsonwebtoken";
 const SECRET_KEY = process.env.JWT_SECRET;
 
 /**
- * Verifica el token JWT recibido en el encabezado Authorization de un evento de API Gateway.
+ * Verifica el token JWT recibido en el encabezado de autorización de un evento de API Gateway.
  * Devuelve un objeto indicando si es válido, el payload decodificado o un mensaje de error.
  *
  * @param event Evento de API Gateway con encabezados HTTP
@@ -33,12 +33,12 @@ export function verifyToken(event: APIGatewayProxyEvent): {
     };
   }
 
-  // Obtener encabezado Authorization (case-insensitive)
+  // Obtener encabezado de autorización (case-insensitive)
   const authHeader =
     event.headers?.Authorization || event.headers?.authorization;
 
   if (!authHeader) {
-    return { valid: false, error: "Encabezado Authorization ausente" };
+    return { valid: false, error: "Encabezado de autorización ausente" };
   }
 
   // Separar el token del esquema Bearer
@@ -46,7 +46,7 @@ export function verifyToken(event: APIGatewayProxyEvent): {
   if (!token) {
     return {
       valid: false,
-      error: "Token ausente en el encabezado Authorization",
+      error: "Token ausente en el encabezado de autorización",
     };
   }
 
